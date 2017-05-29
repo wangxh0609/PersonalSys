@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<!-- 1 常量 -->
+	<!-- 禁用动态方法访问 -->
+	<constant name="struts.enable.DynamicMethodInvocation" value="true" />
+	<!-- 配置成开发模式 -->
+	<constant name="struts.devMode" value="false" />
+	<!-- 配置拓展名为action -->
+	<constant name="struts.action.extention" value="action" />
+	<!-- 把主题配置成simple -->
+	<constant name="struts.ui.theme" value="simple" />
+	
+	<!-- 2 公共项 -->
+	<package name="common" namespace="/" extends="struts-default">
+		<!-- 2.2 拦截器的配置  注意配置顺序位置 -->
+		<!-- 
+		方法一：	一个action单独使用，需要多次引用否则默认的将会覆盖
+				<action name="uiAction_*_*">					
+					<interceptor-ref name="loginInterceptor"></interceptor-ref>
+					<interceptor-ref name="defaultStack"></interceptor-ref>
+				</action>
+		方法二：将多个拦截器打包生成自定义栈，action使用栈				
+			<interceptor-stack name="loginStack">
+				<interceptor-ref name="loginInterceptor"></interceptor-ref>
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+			</interceptor-stack>
+			*  action 引用
+			<action name="uiAction_*_*">					
+				<interceptor-ref name="loginStack"></interceptor-ref>				
+			</action>
+		方法三：自定义栈，把默认栈覆盖
+		 -->		
+		<interceptors>
+		<!-- @1)声明拦截器 -->
+			<interceptor name="loginInterceptor" class="com.hust.crm.web.interceptor.LoginInterceptor"></interceptor>
+			<!-- @2)自定义拦截器栈 -->
+			<interceptor-stack name="loginStack">
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+				<!-- 自定义拦截器需要 进行login方法不进行拦截
+				excludeMethods:配置不包含的方法，多个方法逗号分隔
+				-->
+				<interceptor-ref name="loginInterceptor">
+					<param name="excludeMethods">login,execute,register</param>
+				</interceptor-ref>				
+			</interceptor-stack>
+		</interceptors>
+		<!-- @3) 声明默认-->
+		<!-- 注释掉为了开发是测试方便 -->
+		<default-interceptor-ref name="loginStack"></default-interceptor-ref><!--  -->
+		
+		
+		<!-- 全局结果集 -->
+	    <global-results>
+			<result name="login">/WEB-INF/jsp/loginUI.jsp</result>
+			<!--result name="login">/WEB-INF/jsp/home/home.jsp</result>  -->
+			
+			<!--result name="error" type="error">/WEB-INF/jsp/error.jsp</result>  -->
+			<result name="sysError">/WEB-INF/jsp/error.jsp</result>
+			<result name="input">/WEB-INF/jsp/error.jsp</result>
+		</global-results>
+	    <!-- 全局异常映射 -->
+		<!-- global-exception-mappings>
+			<exception-mapping result="sysError" exception="cn.itcast.core.exception.SysException"></exception-mapping>
+			<exception-mapping result="input" exception="java.lang.Exception"></exception-mapping>
+		</global-exception-mappings> -->
+	
+		<!--2.1 配置公共jsp 访问action  解决访问不到web-inf下pages问题  -->
+		<!-- 说明： action.class 默认值：ActionSupport
+			 action.method默认值：execute
+			 result.name 默认值success故可省略
+	 --> 
+		<action name="uiAction_*_*">
+			<result>/WEB-INF/jsp/{1}/{2}.jsp</result>			
+		</action>
+		<action name="uiActionThree_*_*_*">		
+			<result>/WEB-INF/jsp/{1}/{2}/{3}.jsp</result>			
+		</action>
+			
+	</package>
+	
+	
+	
+	
+	<!-- 3 加载其他配置文件 -->
+	<!-- 包含登录的struts配置文件 -->
+	<include file="/struts/login-struts.xml"></include>	
+	<include file="/struts/struts-staff.xml"></include>
+	<include file="/struts/info-struts.xml"></include>
+	<include file="/struts/fileInfo-struts.xml"></include>
+</struts>

@@ -1,0 +1,7 @@
+eclipse.preferences.version=1
+encoding//WebContent/js/ueditor/jsp/config.json=UTF-8
+encoding//src/com/hust/crm/staff/domain/CrmStaff.java=UTF-8
+encoding//src/com/hust/crm/staff/web/action/StaffAction.java=UTF-8
+encoding//src/com/hust/crm/web/interceptor/LoginInterceptor.java=UTF-8
+encoding//src/com/hust/docMgr/infodb/domain/DocMarInfo.java=UTF-8
+encoding//src/com/hust/docMgr/infodb/web/action/InfoDbAction.java=UTF-8

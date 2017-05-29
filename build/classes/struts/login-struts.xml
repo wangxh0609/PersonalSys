@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<package name="login-action" namespace="/sys" extends="common">
+		<action name="staffAction_*" class="com.hust.crm.Loginstaff.web.action.LoginStaffAction" method="{1}">
+			<!-- 1 登录成功 -->
+			<result name="success" type="redirectAction">staffAction_home</result>
+			<!-- 2 没有登录成，需要登录(struts.xml配置) -->
+			<!--  <result name="login">/WEB-INF/pages/login.jsp</result>-->
+			<!-- 3 首页 -->
+			<result name="home">/WEB-INF/jsp/home/home.jsp</result>
+			<!-- 查询所有 -->
+			<result name="findAll">/WEB-INF/pages/staff/listStaff.jsp</result>
+			<!-- 5 编辑前显示jsp页面 -->
+			<result name="editUI">/WEB-INF/pages/staff/editStaff.jsp</result>
+			<result name="editpwd">/WEB-INF/pages/staff/updPwd.jsp</result>
+			<result name="pwd">/WEB-INF/pages/frame/right.jsp</result>
+			<result name="register">/WEB-INF/jsp/home/register.jsp</result>					
+		</action>			
+	</package>
+
+</struts>

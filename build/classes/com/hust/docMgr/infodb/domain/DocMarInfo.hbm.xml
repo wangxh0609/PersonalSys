@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+     <class name="com.hust.docMgr.infodb.domain.DocMarInfo" table="Docmgr_info">
+        <id name="infoId" type="java.lang.String">
+            <column name="infoId" length="32"/>
+            <generator class="uuid.hex" />
+        </id>
+        <property name="type" type="java.lang.String">
+            <column name="type" length="255" />
+        </property>
+        <property name="source" type="java.lang.String">
+            <column name="source" length="255" />
+        </property>
+        <property name="accountNum" type="java.lang.String">
+            <column name="accountNum"/>
+        </property>
+        <property name="content" type="java.lang.String">
+            <column name="content" />
+        </property>
+        <property name="memo" type="java.lang.String">
+            <column name="memo" length="200" />
+        </property>
+        <property name="creator" type="java.lang.String">
+            <column name="creator" length="100" />
+        </property>
+        <property name="createTime" type="java.util.Date">
+            <column name="createTime" sql-type="datetime"/>
+        </property>
+        <property name="state" type="java.lang.String">
+            <column name="state" length="50" />
+        </property>
+    </class>
+</hibernate-mapping>
