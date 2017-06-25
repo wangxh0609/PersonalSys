@@ -65,7 +65,7 @@ FONT-SIZE: 12px; COLOR: #4b4b4b; LINE-HEIGHT: 18px; TEXT-DECORATION: none
 					确认密码：<s:password id="reNewPassword" name="reNewPassword" cssClass="msg"  cssStyle="color: #767676" size="31"/><br/><br/>
 					姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：<s:textfield id="staffName" name="staffName" cssClass="msg" cssStyle="color: #767676" size="31"/><br/><br/>
 					性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：<s:radio list="{'男','女'}" name="gender"></s:radio><br/><br/>
-					出生日期：<s:date name="onDutyDate" format="yyyy-MM-dd" var="myDate"/><s:textfield  cssClass="msg" name="onDutyDate" value="%{#myDate}" onfocus="c.showMoreDay=true; c.show(this);" size="31"></s:textfield><br/><br/>										
+				<!--出生日期：<s:date name="onDutyDate" format="yyyy-MM-dd" var="myDate"/><s:textfield  cssClass="msg" name="onDutyDate" value="%{#myDate}" onfocus="c.showMoreDay=true; c.show(this);" size="31"></s:textfield><br/><br/>  -->											
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class="btn" type="submit" value=" 注册 "/>
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class="btn" type="reset" value="取消 "/>
 				</s:form>			

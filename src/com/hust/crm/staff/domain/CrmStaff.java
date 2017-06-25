@@ -19,6 +19,15 @@ public class CrmStaff {
   CONSTRAINT FOREIGN KEY (`postId`) REFERENCES `crm_post` (`postId`)
 );
 	 */
+	private boolean isNeedEncry=true;
+	public boolean isNeedEncry() {
+		return isNeedEncry;
+	}
+
+	public void setNeedEncry(boolean isNeedEncry) {
+		this.isNeedEncry = isNeedEncry;
+	}
+
 	private String staffId;
 	private String loginName;
 	private String loginPwd;
@@ -26,16 +35,43 @@ public class CrmStaff {
 	private String gender;
 	private Date onDutyDate;    
 	private String headImg;
+	private String email;
+	private CrmPost post;
+	private String phoneNum;
+	public String getPhoneNum() {
+		return phoneNum;
+	}
+
+	public void setPhoneNum(String phoneNum) {
+		this.phoneNum = phoneNum;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	private String state;
+	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	public String getHeadImg() {
 		return headImg;
 	}
 
 	public void setHeadImg(String headImg) {
 		this.headImg = headImg;
-	}
-
-	//澶氬涓�锛氬涓憳宸ュ睘浜庝竴涓亴鍔
-	private CrmPost post;
+	}	
+	
 
 	public String getStaffId() {
 		return staffId;

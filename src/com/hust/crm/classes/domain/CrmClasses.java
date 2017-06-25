@@ -44,7 +44,7 @@ public class CrmClasses {
 	private Date uploadTime;
 	private String uploadPath;
 	private String uploadFilename;
-	//多对一：多个班级对应一个课程类别
+	
 	private CrmCourseType courseType;
 	public String getClassId() {
 		return classId;

@@ -90,8 +90,8 @@
 	<div class="banner">
 		<div class="menu">
 			<ul class="clearfix">
-				<li><a href="${basePath}/sys/staffAction_home" target="_top">工作主页</a></li>
-                <li><a href="javascript:void(0);">个人管理</a></li>
+				<li><a href="${basePath}sys/staffAction_home" target="_top">工作主页</a></li>
+                <li><a href="${basePath}sys/blog_blogfrontIndex" target="_top">个人博客</a></li>
                 <li><a href="javascript:void(0);">在线论坛</a></li>
                 <li><a href="javascript:void(0);">在线学习</a></li>
                 <li><a href="javascript:void(0);">信息仓库</a></li>

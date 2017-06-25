@@ -86,7 +86,7 @@
 <div class="menu">
     <ul class="clearfix">
         <li class="hover"><a href="javascript:void(0);">工作主页</a></li>
-        <li><a href="javascript:void(0);">个人管理</a></li>
+        <li><a href="${ctx }/sys/blog_blogfrontIndex">个人博客</a></li><!-- ${ctx }/nsfw/InfoDbActionTwo_frame -->
         <li><a href="javascript:void(0);">在线论坛</a></li>
         <li><a href="javascript:void(0);">在线学习</a></li>       
         <li><a href="${ctx }/nsfw/InfoDbAction_frame">信息仓库</a> </li><!--/sys/  -->
@@ -106,8 +106,9 @@
                 <tr>
                     <td width="76" height="100" align="center" valign="middle">
                         <div class="left-tx">
-                            <s:if test="%{#session.SYS_USER.headImg != null && #session.SYS_USER.headImg !=''}">
-                            	<img src="${ctx}/upload/<s:property value='#session.SYS_USER.headImg'/>" width="70" height="70" />
+                            <s:if test="%{#session.loginStaff.headImg != null && #session.loginStaff.headImg !=''}">
+                            <!-- ${ctx}/upload/ -->
+                            	<img id="test" src="/upload<s:property value='#session.loginStaff.headImg'/>" width="70" height="70" />
                             </s:if><s:else>
 								<img src="${ctx}/images/home/gs09.png" width="70" height="70" />
 							</s:else>
@@ -119,7 +120,7 @@
                             <td colspan="2" style=" font-weight:bold; color:#3a7daa;"><s:property value="#session.SYS_USER.name"/></td>
                         </tr>
                         <tr>
-                            <td colspan="2">所属部门：<s:property value="#session.SYS_USER.dept"/></td>
+                            <td colspan="2">所属部门：<s:property value=""/></td>
                         </tr>
                     </table>
                     </td>
@@ -156,9 +157,9 @@
     <div class="layout_center">
         <div class="lc_grzx1">
             <div class="lc_grzxbt">
-                <h1>我的投诉</h1>
+                <h1>我的信息</h1>
                 <div style="float:right;padding-top:3px;">
-                	<s:a action="home_complainAddUI" namespace="/sys" target="_blank">我要投诉</s:a>&nbsp;&nbsp;
+                	<!--<s:a action="home_complainAddUI" namespace="/sys" target="_blank">我要投诉</s:a>&nbsp;&nbsp;-->
                 </div>
             </div>
             <table width="98%" border="0" align="center">
@@ -167,9 +168,9 @@
                     <td height="23">
                     xxx标题
                     </td>
-                    <td width="180px">xx受理状态</td>
-                    <td width="180px">是否匿名投诉</td>
-                    <td width="180px">投诉时间</td>
+                    <td width="180px">发布状态</td>
+   
+                    <td width="180px">发布时间</td>
                 </tr>
                 
             </table>
@@ -177,7 +178,7 @@
 
         <div class="lc_grzx1">
             <div class="lc_grzxbt">
-                <h1>我的咨询</h1>
+                <h1>我的博客</h1>
             </div>
             <table width="98%" border="0" align="center">
                 <tr>
@@ -188,9 +189,11 @@
             </table>
         </div>
     </div>
+
 </div>
 <!-- 尾部{ -->
 <div class="foot">版权所有©wanxh 2017</div>
+
 <!-- }尾部 -->
 </body>
 </html>

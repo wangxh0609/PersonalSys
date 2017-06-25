@@ -5,3 +5,6 @@ encoding//src/com/hust/crm/staff/web/action/StaffAction.java=UTF-8
 encoding//src/com/hust/crm/web/interceptor/LoginInterceptor.java=UTF-8
 encoding//src/com/hust/docMgr/infodb/domain/DocMarInfo.java=UTF-8
 encoding//src/com/hust/docMgr/infodb/web/action/InfoDbAction.java=UTF-8
+encoding//src/com/hust/docMgr/personalSour/web/action/PersonSourAction.java=UTF-8
+encoding//src/com/hust/docMgr/role/dao/RoleDao.java=UTF-8
+encoding//src/com/hust/docMgr/role/entity/Role.java=UTF-8

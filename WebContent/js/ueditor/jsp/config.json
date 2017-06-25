@@ -6,8 +6,8 @@
     "imageCompressEnable": true,
     "imageCompressBorder": 1600, 
     "imageInsertAlign": "none",
-    "imageUrlPrefix": "http://localhost:8080/itcastTax",
-    "imagePathFormat": "/upload/ueditor/image/{yyyy}{mm}{dd}/{time}{rand:6}", 
+    "imageUrlPrefix": "http://localhost:8080//upload",
+    "imagePathFormat": "/ueditor/image/{yyyy}{mm}{dd}/{time}{rand:6}", 
                                
     "scrawlActionName": "uploadscrawl", 
     "scrawlFieldName": "upfile", 

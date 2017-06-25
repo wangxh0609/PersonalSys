@@ -18,7 +18,8 @@
 			<result name="editUI">/WEB-INF/pages/staff/editStaff.jsp</result>
 			<result name="editpwd">/WEB-INF/pages/staff/updPwd.jsp</result>
 			<result name="pwd">/WEB-INF/pages/frame/right.jsp</result>
-			<result name="register">/WEB-INF/jsp/home/register.jsp</result>					
+			<result name="register">/WEB-INF/jsp/home/register.jsp</result>	
+			<result name="blogSuccess" type="redirectAction">blog_blogfrontIndex</result>				
 		</action>			
 	</package>
 

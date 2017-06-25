@@ -17,6 +17,6 @@ public interface StaffDao extends BaseDao<CrmStaff>{
 	
 	public boolean updatePassword(CrmStaff crmStaff);
 	public boolean addCrmStaff(CrmStaff crmStaff);
-	public int findByLoginName(String loginName);
+	public CrmStaff findByLoginName(String loginName);
 	
 }

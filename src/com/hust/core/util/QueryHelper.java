@@ -19,9 +19,11 @@ public class QueryHelper {
 		
 	public QueryHelper(Class clazz, String alias){
 		fromClause = "FROM " + clazz.getSimpleName() + " " + alias;
-		System.out.println(clazz.getSimpleName());
+		//System.out.println(clazz.getSimpleName());
 	}
-	
+	public void addFromCon(Class clazz, String alias){
+		fromClause+=","+clazz.getSimpleName() + " " + alias;
+	}
 	public void addCondition(String condition, Object... params){
 		if (whereClause.length() > 1) {
 			whereClause += " AND " + condition;

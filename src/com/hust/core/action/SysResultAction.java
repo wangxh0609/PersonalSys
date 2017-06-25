@@ -17,7 +17,7 @@ public class SysResultAction extends StrutsResultSupport {
 		BaseAction action = (BaseAction)invocation.getAction();
 		
 		//do something
-		System.out.println("进入�? SysResultAction ...");
+		
 	}
 
 }

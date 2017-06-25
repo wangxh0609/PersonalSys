@@ -15,9 +15,9 @@
 <frameset cols="*,1222,*" class="bj" frameborder="no" border="0" framespacing="0">
     <frame src="${basePath}common/bg.jsp" scrolling="No" noresize="noresize"/>
     <frameset rows="156,*" cols="*" frameborder="no" border="0" framespacing="0">
-        <frame src="${basePath }nsfw/InfoDbAction_top" name="topFrame" scrolling="No" noresize="noresize" id="topFrame" />
+        <frame src="${basePath }/nsfw/InfoDbAction_top" name="topFrame" scrolling="No" noresize="noresize" id="topFrame" />
         <frameset cols="14%,60%" frameborder="no" border="0" framespacing="0">
-            <frame src="${basePath }nsfw/InfoDbAction_left" scrolling="yes" noresize="noresize" id="leftFrame" />
+            <frame src="${basePath }/nsfw/InfoDbAction_left" scrolling="yes" noresize="noresize" id="leftFrame" />
             <frame src="${basePath}common/welcome.jsp" name="mainFrame" id="mainFrame" />
         </frameset>
     </frameset>

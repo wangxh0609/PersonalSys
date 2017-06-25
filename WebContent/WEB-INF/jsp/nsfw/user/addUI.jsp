@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib uri="/struts-tags" prefix="s"%>  
 <html>
 <head>
     <%@include file="/common/header.jsp"%>
@@ -7,24 +8,43 @@
     <script type="text/javascript">
     var vResult = false;
     	//校验帐号唯一
+    	
     	function doVerify(){
     		//1、获取帐号
-    		var account = $("#account").val();
+    		var account = $("#loginName").val();
+    		//alert(account);
     		if(account != ""){
     			//2、校验 
     			$.ajax({
-    				url:"${basePath}nsfw/user_verifyAccount.action",
-    				data: {"user.account": account},
+    				url:"${basePath}user/userAction_verifyAccount",
+    				data: {"loginName": account},
     				type: "post",
     				async: false,//非异步
     				success: function(msg){
-    					if("true" != msg){
+    					if("fale" == msg){
+    						//notMatchType  picTooBig  notHead
     						//帐号已经存在
     						alert("帐号已经存在。请使用其它帐号！");
     						//定焦
-    						$("#account").focus();
+    						$("#loginName").focus();
     						vResult = false;
-    					} else {
+    					}else if("notMatchType"==msg){
+    						alert("只能上传jpg|jpeg|gif|bmp|png|ico格式的头像文件！");
+    						//定焦
+    						$("#headImg").focus();
+    						vResult = false;
+    					}
+						else if("picTooBig"==msg){
+							alert("头像文件不能大于1M");
+							$("#headImg").focus();
+							vResult = false;					
+						}
+						else if("notHead"==msg){
+							alert("头像文件不存在或不是文件！");
+							$("#headImg").focus();
+							vResult = false;
+						}
+    					else {
     						vResult = true;
     					}
     				}
@@ -33,13 +53,13 @@
     	}
     	//提交表单
     	function doSubmit(){
-    		var name = $("#name");
+    		var name = $("#staffName");
     		if(name.val() == ""){
     			alert("用户名不能为空！");
     			name.focus();
     			return false;
     		}
-    		var password = $("#password");
+    		var password = $("#loginPwd");
     		if(password.val() == ""){
     			alert("密码不能为空！");
     			password.focus();
@@ -55,65 +75,64 @@
     </script>
 </head>
 <body class="rightBody">
-<form id="form" name="form" action="${basePath }nsfw/user_add.action" method="post" enctype="multipart/form-data">
+<form id="form" name="form" action="${basePath }user/userAction_addUser" method="post" enctype="multipart/form-data">
     <div class="p_d_1">
         <div class="p_d_1_1">
             <div class="content_info">
     <div class="c_crumbs"><div><b></b><strong>用户管理</strong>&nbsp;-&nbsp;新增用户</div></div>
     <div class="tableH2">新增用户</div>
-    <table id="baseInfo" width="100%" align="center" class="list" border="0" cellpadding="0" cellspacing="0"  >
+    <s:actionerror/>
+   	<s:fielderror cssStyle="color:red"/>
+    <table id="staff" width="100%" align="center" class="list" border="0" cellpadding="0" cellspacing="0"  >
         <tr>
             <td class="tdBg" width="200px">所属部门：</td>
-            <td><s:select name="user.dept" list="#{'部门A':'部门A','部门B':'部门B' }"/></td>
+            <td><s:select name="test" list="#{'部门A':'部门A','部门B':'部门B' }"/></td>
         </tr>
         <tr>
-            <td class="tdBg" width="200px">头像：</td>
+           <td class="tdBg" width="200px">头像：</td>
             <td>
-                <input type="file" name="headImg"/>
+                <input type="file" id="headImg" name="headImg"/>
             </td>
         </tr>
         <tr>
             <td class="tdBg" width="200px">用户名：</td>
-            <td><s:textfield id="name" name="user.name"/> </td>
+            <td><s:textfield id="staffName" name="staff.staffName"/> </td>
         </tr>
         <tr>
             <td class="tdBg" width="200px">帐号：</td>
-            <td><s:textfield id="account" name="user.account" onchange="doVerify()"/></td>
+            <td><s:textfield id="loginName" name="staff.loginName" onchange="doVerify()"/></td>
         </tr>
         <tr>
             <td class="tdBg" width="200px">密码：</td>
-            <td><s:textfield id="password" name="user.password"/></td>
+            <td><s:textfield id="loginPwd" name="staff.loginPwd"/></td>
         </tr>
         <tr>
             <td class="tdBg" width="200px">性别：</td>
-            <td><s:radio list="#{'true':'男','false':'女'}" name="user.gender"/></td>
+            <td><s:radio list="#{'男':'男','女':'女'}" name="staff.gender"/></td>
         </tr>
         <tr>
             <td class="tdBg" width="200px">角色：</td>
-            <td>
-            	<s:checkboxlist list="#roleList" name="userRoleIds" listKey="roleId" listValue="name"></s:checkboxlist>
-            </td>
         </tr>
         <tr>
             <td class="tdBg" width="200px">电子邮箱：</td>
-            <td><s:textfield name="user.email"/></td>
+            <td><s:textfield name="staff.email"/></td>
         </tr>
         <tr>
             <td class="tdBg" width="200px">手机号：</td>
-            <td><s:textfield name="user.mobile"/></td>
+            <td><s:textfield name="staff.phoneNum"/></td>
         </tr>
         <tr>
             <td class="tdBg" width="200px">生日：</td>
-            <td><s:textfield id="birthday" name="user.birthday" readonly="true" onfocus="WdatePicker({'skin':'whyGreen','dateFmt':'yyyy-MM-dd'});" /></td>
+            <td><s:textfield id="onDutyDate" name="staff.onDutyDate" readonly="true" onfocus="WdatePicker({'skin':'whyGreen','dateFmt':'yyyy-MM-dd'});" /></td>
         </tr>
 		<tr>
             <td class="tdBg" width="200px">状态：</td>
-            <td><s:radio list="#{'1':'有效','0':'无效'}" name="user.state" value="1"/></td>
+            <td><s:radio list="#{'1':'有效','0':'无效'}" name="staff.state" value="1"/></td>
         </tr>
-        <tr>
+        <!-- <tr>
             <td class="tdBg" width="200px">备注：</td>
-            <td><s:textarea name="user.memo" cols="75" rows="3"/></td>
-        </tr>
+            <td><s:textarea name="memo" cols="75" rows="3"/></td>
+        </tr> -->
     </table>
     <div class="tc mt20">
         <input type="button" class="btnB2" value="保存" onclick="doSubmit()" />

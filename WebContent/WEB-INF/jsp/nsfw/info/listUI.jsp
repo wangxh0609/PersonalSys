@@ -23,22 +23,31 @@
   	}
   	//删除
   	function doDelete(id){
-  		document.forms[0].action = "${basePath}nsfw/InfoDbAction_deleteById?infoId="+id;
-  		document.forms[0].submit();
+  		
+  		var msg="您真的确定要删除吗？\n\n请确认！";
+  		if(confirm(msg)==true){
+  			document.forms[0].action = "${basePath}nsfw/InfoDbAction_deleteById?infoId="+id;
+  	  		document.forms[0].submit();
+  		}
+  		
   	}
   	//批量删除
   	function doDeleteAll(){
-  		obj=document.getElementsByName("selectedRow");
-  		check_val = [];
-  		for(k in obj){
-  			if(obj[k].checked){
-  				check_val.push(obj[k].value);
-  			}
+  		var msg="您真的确定要删除吗？\n\n请确认！";
+  		if(confirm(msg)==true){
+	  		obj=document.getElementsByName("selectedRow");
+	  		check_val = [];
+	  		for(k in obj){
+	  			if(obj[k].checked){
+	  				check_val.push(obj[k].value);
+	  			}
+	  		}
+	  		
+	  		document.forms[0].action = "${basePath}nsfw/InfoDbAction_deleteSelected?infoId="+check_val;
+	  		document.forms[0].submit();
   		}
-  		
-  		document.forms[0].action = "${basePath}nsfw/InfoDbAction_deleteSelected?infoId="+check_val;
-  		document.forms[0].submit();
   	}
+  		
   	//异步发布信息,信息的id及将要改成的信息状态
   	function doPublic(infoId, state){
   		//1、更新信息状态

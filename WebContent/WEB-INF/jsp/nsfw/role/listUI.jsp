@@ -15,7 +15,7 @@
 	}
   	//新增
   	function doAdd(){
-  		document.forms[0].action = "${basePath}nsfw/role_addUI.action";
+  		document.forms[0].action = "${basePath}nsfw/role_addUI";
   		document.forms[0].submit();
   	}
   	//编辑

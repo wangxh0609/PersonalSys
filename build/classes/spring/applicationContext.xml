@@ -60,7 +60,7 @@
 		* 强制cglib ：  proxy-target-class="true"
 	-->
 	<aop:config>
-		<aop:advisor advice-ref="txAdvice" pointcut="execution(* com.hust.*.*.service..*.*(..))"/>
+		<aop:advisor advice-ref="txAdvice" pointcut="execution(* com.hust..service..*.*(..))"/><!-- *.* -->
 	</aop:config>
   
   
@@ -75,4 +75,5 @@
 	<import resource="applicationContext-department.xml"/>
 	
 	<import resource="applicationContext-infodb.xml"/>	
+	<import resource="applicationContext-role.xml"/>
 </beans>

@@ -50,9 +50,8 @@ public class CrmPost {
 	}
 
 	private String postName;
-	//多对一 多个职务属性 一个部门
+
 	private CrmDepartment department;
 
-	//一对多：一个职务有多个员工
 	private Set<CrmStaff> staffset=new HashSet<CrmStaff>();
 }

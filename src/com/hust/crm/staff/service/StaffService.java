@@ -11,5 +11,5 @@ public interface StaffService extends BaseService<CrmStaff> {
 	public CrmStaff findById(String staffId);
 	public boolean updatePassword(CrmStaff crmStaff);
 	public boolean addCrmStaff(CrmStaff crmStaff);
-	public int findByLoginName(String loginName);
+	public CrmStaff findByLoginName(String loginName);
 }

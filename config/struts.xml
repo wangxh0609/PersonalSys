@@ -12,7 +12,7 @@
 	<constant name="struts.action.extention" value="action" />
 	<!-- 把主题配置成simple -->
 	<constant name="struts.ui.theme" value="simple" />
-	
+	<constant name="struts.multipart.maxSize" value="10000000"/> 
 	<!-- 2 公共项 -->
 	<package name="common" namespace="/" extends="struts-default">
 		<!-- 2.2 拦截器的配置  注意配置顺序位置 -->
@@ -43,7 +43,7 @@
 				excludeMethods:配置不包含的方法，多个方法逗号分隔
 				-->
 				<interceptor-ref name="loginInterceptor">
-					<param name="excludeMethods">login,execute,register</param>
+					<param name="excludeMethods">login,execute,register,blog*</param>
 				</interceptor-ref>				
 			</interceptor-stack>
 		</interceptors>
@@ -90,4 +90,7 @@
 	<include file="/struts/struts-staff.xml"></include>
 	<include file="/struts/info-struts.xml"></include>
 	<include file="/struts/fileInfo-struts.xml"></include>
+	<include file="/struts/role-struts.xml"></include>
+	<include file="/struts/blog-struts.xml"></include>
+	
 </struts>

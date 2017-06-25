@@ -23,7 +23,7 @@
     <table id="baseInfo" width="100%" align="center" class="list" border="0" cellpadding="0" cellspacing="0"  >
         <tr>
             <td class="tdBg" width="200px">信息分类：</td>
-            <td><s:select name="type" list="{'QQ','微信','花生壳'}"/></td><!-- list="#infoTypeMap" -->
+            <td><s:select name="type" list="{'QQ','微信','花生壳','CSDN','百度'}"/></td><!-- list="#infoTypeMap" -->
             <td class="tdBg" width="200px">来源：</td>
             <td><s:textfield name="source"/></td>
         </tr>

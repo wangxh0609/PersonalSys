@@ -15,7 +15,10 @@
 			<column name="onDutyDate" sql-type="datetime"></column>
 		</property>
 		<property name="headImg"></property>
-		<!--多对一 多个职务属于同一个部门-->
+		<property name="email"></property>
+		<property name="phoneNum"></property>
+		<property name="state"></property>
+		<!--多对一 多个员工属于同一个职务-->
 		<many-to-one name="post" class="com.hust.crm.post.domain.CrmPost" column="postId"></many-to-one>
 	</class>
 </hibernate-mapping>

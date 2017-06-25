@@ -39,8 +39,10 @@ public class StaffServiceImpl extends BaseServiceImpl<CrmStaff> implements Staff
 	}
 	@Override
 	public boolean updatePassword(CrmStaff crmStaff) {
-		String loginPwd=MyStringUtils.getMD5Value(crmStaff.getLoginPwd());	
-		crmStaff.setLoginPwd(loginPwd);
+		if(crmStaff.isNeedEncry()){
+			String loginPwd=MyStringUtils.getMD5Value(crmStaff.getLoginPwd());
+			crmStaff.setLoginPwd(loginPwd);
+		}
 		return staffDao.updatePassword(crmStaff);
 	}
 	@Override
@@ -51,7 +53,7 @@ public class StaffServiceImpl extends BaseServiceImpl<CrmStaff> implements Staff
 		return staffDao.addCrmStaff(crmStaff);
 	}
 	@Override
-	public int findByLoginName(String loginName) {
+	public CrmStaff findByLoginName(String loginName) {
 		
 		return staffDao.findByLoginName(loginName);
 	}

@@ -1,13 +1,17 @@
 package com.hust.crm.Loginstaff.web.action;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
+import com.hust.AccountSys.blog.serviceImpl.VisitorLogService;
 import com.hust.core.action.BaseAction;
 import com.hust.crm.department.domain.CrmDepartment;
 import com.hust.crm.department.service.DepartmentService;
 import com.hust.crm.staff.domain.CrmStaff;
 import com.hust.crm.staff.service.StaffService;
 import com.hust.crm.utils.MyStringUtils;
+import com.hust.docMgr.blog.domain.VisitorLogBean;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ModelDriven;
 
@@ -17,6 +21,7 @@ public class LoginStaffAction extends BaseAction implements ModelDriven<CrmStaff
 	private CrmStaff staff = new CrmStaff();
 	@Override
 	public CrmStaff getModel() {
+	
 		return staff ;
 	}
 
@@ -66,13 +71,32 @@ public class LoginStaffAction extends BaseAction implements ModelDriven<CrmStaff
 	 * @return
 	 */
 	public String login(){
-		
+		Object obj=ActionContext.getContext().getSession().get("loginType");//, "blog"
 		CrmStaff findStaff = staffService.login(staff);
 		
 		if(findStaff != null){
+			VisitorLogService visitorService=new VisitorLogService();
+			VisitorLogBean visitorBean=new VisitorLogBean();
+			visitorBean.setVisitorName(findStaff.getLoginName());
+			visitorBean.setVisitorInfo(findStaff.getLoginName()+"登陆了系统！");
 			
+			SimpleDateFormat sdf =   new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss " );
+			String datestr = sdf.format(new Date());
+			visitorBean.setVisitorTime(datestr);
+			visitorService.operationArticle("add", visitorBean);
 			ActionContext.getContext().getSession().put("loginStaff", findStaff);
-			
+			if(obj!=null){
+				String loginType=(String)obj;
+				if(loginType.equals("blog")){
+					Object teobj=ActionContext.getContext().getSession().get("revisitorStaff");
+					if(teobj!=null){
+						CrmStaff revisitorStaff=(CrmStaff)teobj;
+						revisitorStaff.setNeedEncry(false);//表示登陆了
+						ActionContext.getContext().getSession().put("revisitorStaff",revisitorStaff);
+					}
+					return "blogSuccess";
+				}
+			}
 			return "success";
 		} 
 		
@@ -142,12 +166,27 @@ public class LoginStaffAction extends BaseAction implements ModelDriven<CrmStaff
 	public String register(){
 		if(staff.getLoginName()!=null&&!staff.getLoginName().trim().equals("")&&staff.getStaffName()!=null&&!staff.getStaffName().trim().equals("")){						
 			if(staff.getLoginPwd().equals(getReNewPassword())&&getReNewPassword()!=null&&getReNewPassword().trim()!=""){
-				if(staffService.findByLoginName(staff.getLoginName())>0){
+				if(staffService.findByLoginName(staff.getLoginName())!=null){
 					this.addFieldError("registerErr", "用户名已被注册！");
 					return "register";
 				}
-				if(staffService.addCrmStaff(staff))						
+				if(staffService.addCrmStaff(staff))	{	
+					Object obj=ActionContext.getContext().getSession().get("loginType");
+					if(obj!=null){
+						String loginType=(String)obj;
+						if(loginType.equals("blog")){
+							ActionContext.getContext().getSession().put("loginStaff", staff);
+							Object teobj=ActionContext.getContext().getSession().get("revisitorStaff");
+							if(teobj!=null){
+								CrmStaff revisitorStaff=(CrmStaff)teobj;
+								revisitorStaff.setNeedEncry(false);//表示登陆了
+								ActionContext.getContext().getSession().put("revisitorStaff",revisitorStaff);
+							}
+							return "blogSuccess";
+						}
+					}
 					return "login";
+				}
 			}
 			else{
 				this.addFieldError("pwdFail", "密码输入不一致，请重新输入！");

@@ -59,11 +59,15 @@ public class StaffDaoImpl extends BaseDaoImpl<CrmStaff> implements StaffDao {
 	}
 
 	@Override
-	public int findByLoginName(String loginName) {
+	public CrmStaff findByLoginName(String loginName) {
 		// TODO Auto-generated method stub
 		
 		List<CrmStaff> list=this.getHibernateTemplate().find("from CrmStaff where loginName=?",loginName);
-		return list.size();
+		if(list==null||list.size()==0){
+			return null;
+		}else{
+			return list.get(0);
+		}
 	}
 
 }

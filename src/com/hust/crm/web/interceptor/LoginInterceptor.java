@@ -18,8 +18,7 @@ public class LoginInterceptor extends MethodFilterInterceptor {
 			if (action instanceof ActionSupport){
 				ActionSupport actionSupport=(ActionSupport)action;
 				actionSupport.addFieldError("", "请登录！");
-			}
-				
+			}				
 			return "login";
 		}
 				

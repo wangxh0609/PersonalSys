@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<package name="blog_action" namespace="/sys" extends="common">
+		<action name="blog_*" class="com.hust.blog.web.action.BlogAction" method="{1}">
+			<!-- <result name="{1}">/WEB-INF/jsp/nsfw/role/{1}.jsp</result> -->
+			
+			<result name="frontSucc">/WEB-INF/jsp/blog/front/frontIndex.jsp</result>
+		</action>
+		
+		<action name="word_*_*" class="com.hust.blog.web.action.WordAction" method="{2}">
+			<result name="{2}">/WEB-INF/jsp/blog/{1}/word/{2}.jsp</result>
+			<result name="success">/WEB-INF/jsp/blog/front/word/success.jsp</result>
+			<result name="fail">/WEB-INF/jsp/blog/front/word/error.jsp</result>
+			<result name="successAdmin">/WEB-INF/jsp/blog/admin/success.jsp</result>
+			<result name="failAdmin">/WEB-INF/jsp/blog/admin/error.jsp</result>			
+		</action>
+		
+		<action name="article_*_*" class="com.hust.blog.web.action.ArticleAction" method="{2}">
+			<result name="{2}">/WEB-INF/jsp/blog/{1}/article/{2}.jsp</result>
+			<result name="success">/WEB-INF/jsp/blog/front/article/success.jsp</result>
+			<result name="successAdmin">/WEB-INF/jsp/blog/admin/success.jsp</result>
+			<result name="fail">/WEB-INF/jsp/blog/front/article/error.jsp</result>
+			<result name="failAdmin">/WEB-INF/jsp/blog/admin/error.jsp</result>
+			<result name="articleListAdmin">/WEB-INF/jsp/blog/admin/article/articleList.jsp</result>
+			<result name="adminarticleSingle">/WEB-INF/jsp/blog/admin/article/articleSingle.jsp</result>
+		</action>
+		
+		<action name="photo_*_*" class="com.hust.blog.web.action.PhotoAction" method="{2}">
+			<result name="{2}">/WEB-INF/jsp/blog/{1}/photo/{2}.jsp</result>
+			
+			<result name="adminphotoList">/WEB-INF/jsp/blog/admin/photo/photoList.jsp</result>
+			<result name="success">/WEB-INF/jsp/blog/admin/success.jsp</result>
+			<result name="fail">/WEB-INF/jsp/blog/admin/error.jsp</result>
+		</action>
+		
+		<action name="friend_*_*" class="com.hust.blog.web.action.FriendAction" method="{2}">
+			<result name="{2}">/WEB-INF/jsp/blog/{1}/friend/{2}.jsp</result>
+			<result name="successAdmin">/WEB-INF/jsp/blog/admin/success.jsp</result>
+			<result name="failAdmin">/WEB-INF/jsp/blog/admin/error.jsp</result>
+			<result name="adminListFriend">/WEB-INF/jsp/blog/admin/friend/friendList.jsp</result>
+			<result name="adminSingleFriend">/WEB-INF/jsp/blog/admin/friend/friendSingle.jsp</result>
+		</action>
+		
+		<action name="bloglogin_*" class="com.hust.blog.web.action.BlogLoginAction" method="{1}">
+			<result name="{1}">/WEB-INF/jsp/blog/admin/{1}.jsp</result>
+			<result name="adminIndex">/WEB-INF/jsp/blog/admin/adminIndex.jsp</result>
+			<result name="adminFirstPage" type="redirectAction">
+				<param name="actionName">blog_blogfrontIndex</param>
+			</result>
+			<result name="logon">/WEB-INF/jsp/blog/admin/logon.jsp</result>
+		</action>
+	</package>
+
+</struts>

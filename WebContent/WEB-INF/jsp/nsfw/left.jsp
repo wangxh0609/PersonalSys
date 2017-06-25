@@ -74,10 +74,12 @@
         <div class="nBox" style="width:214px;">
             <div class="x_top" style="width:214px;"></div>
             <div class="sm">
+            <!--
 				<dl class="">
-                    <dt><a class="yh" href="${ctx }nsfw/role_listUI.action" target="mainFrame"><b></b>角色管理<s class="down"></s>
+                    <dt><a class="yh" href="${ctx }nsfw/role_listUI" target="mainFrame"><b></b>角色管理<s class="down"></s>
                     </a></dt>
                 </dl>
+                -->
                 <dl class="">
                     <dt><a class="yh" href="${ctx }user/userAction_listUI" target="mainFrame"><b></b>用户管理<s class="down"></s>
                     </a></dt>
@@ -87,14 +89,15 @@
                     <dt><a class="xxfb" href="${ctx }nsfw/InfoDbActionTwo_listUI" target="mainFrame"><b></b>账号密码管理<s
                             class="down"></s> </a></dt>
                 </dl>
+                <!--
                 <dl class="">
                     <dt><a class="tssl" href="${ctx }nsfw/fileMgr_listUI" target="mainFrame"><b></b>问题反馈管理<s
                             class="down"></s> </a></dt>
-                </dl>
+                </dl>  -->
                 <!-- 
                 <dl class="">
                     <dt><a class="nszx" href="#" target="mainFrame"><b></b>纳税咨询管理<s class="down"></s> </a></dt>
-                </dl> -->
+                </dl>
 
                 <dl class="">
                     <dt><a class="fwdc" href="#" target="mainFrame"><b></b>服务调查管理<s class="down"></s> </a></dt>
@@ -108,7 +111,7 @@
                         <a class="" href="#" target="mainFrame"><b></b>预约服务</a>
                         <a class="" href="#" target="mainFrame"><b></b>预约事项</a>
                     </dd>
-                </dl>
+                </dl> -->
             </div>
         </div>
     </div>

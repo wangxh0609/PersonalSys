@@ -8,8 +8,8 @@
 		<action name="userAction_*" class="com.hust.crm.staff.web.action.StaffAction" method="{1}">
 		    <result name="{1}">/WEB-INF/jsp/nsfw/user/{1}.jsp</result>
 			<result name="list" type="redirectAction">
-				<param name="actionName">user_listUI</param>
-				<param name="user.name">${strName}</param>
+				<param name="actionName">userAction_listUI</param>
+				<!--<param name="user.name">${strName}</param>  -->
 				<param name="encode">true</param>
 			</result>
 		</action>

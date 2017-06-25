@@ -19,13 +19,16 @@
       	}
       	//编辑
       	function doEdit(id){
-      		document.forms[0].action = "${basePath}user/userAction_editUI?user.id=" + id;
+      		document.forms[0].action = "${basePath}user/userAction_editUI?staff.staffId=" + id;
       		document.forms[0].submit();
       	}
       	//删除
       	function doDelete(id){
-      		document.forms[0].action = "${basePath}user/userAction_delete?user.id=" + id;
-      		document.forms[0].submit();
+      		var msg="您真的确定要删除吗？\n\n请确认！";
+      		if(confirm(msg)==true){
+      		   document.forms[0].action = "${basePath}user/userAction_delete?staff.staffId=" + id;
+      		   document.forms[0].submit();
+      		}
       	}
       	//批量删除
       	function doDeleteAll(){
@@ -59,16 +62,16 @@
                 <div class="c_crumbs"><div><b></b><strong>用户管理</strong></div> </div>
                 <div class="search_art">
                     <li>
-                        用户名：<s:textfield name="user.name" cssClass="s_text" id="userName"  cssStyle="width:160px;"/>
+                        用户名：<s:textfield name="staff.staffName" cssClass="s_text" id="staffName"  cssStyle="width:160px;"/>
                     </li>
                     <li><input type="button" class="s_button" value="搜 索" onclick="doSearch()"/></li>
                     <li style="float:right;">
                         <input type="button" value="新增" class="s_button" onclick="doAdd()"/>&nbsp;
-                        <input type="button" value="删除" class="s_button" onclick="doDeleteAll()"/>&nbsp;
+                        <!--<input type="button" value="删除" class="s_button" onclick="doDeleteAll()"/>&nbsp;
                         <input type="button" value="导出" class="s_button" onclick="doExportExcel()"/>&nbsp;
                     	<input name="userExcel" type="file"/>
                         <input type="button" value="导入" class="s_button" onclick="doImportExcel()"/>&nbsp;
-
+					-->
                     </li>
                 </div>
 
@@ -88,12 +91,12 @@
                                 <td align="center"><input type="checkbox" name="selectedRow" value="<s:property value='id'/>" /></td>
                                 <td align="center"><s:property value="staffName"/></td>
                                 <td align="center"><s:property value="loginName"/></td>
-                                <td align="center"><s:property value="postId"/></td>
-                                <td align="center"><s:property value="gender?'男':'女'"/></td>
-                                <td align="center"><s:property value="***"/></td>
+                                <td align="center"><s:property value="post.department.depName"/></td>
+                                <td align="center"><s:property value="gender"/></td>
+                                <td align="center"><s:property value="email"/></td>
                                 <td align="center">
-                                    <a href="javascript:doEdit('<s:property value='id'/>')">编辑</a>
-                                    <a href="javascript:doDelete('<s:property value='id'/>')">删除</a>
+                                    <a href="javascript:doEdit('<s:property value='staffId'/>')">编辑</a>
+                                    <a href="javascript:doDelete('<s:property value='staffId'/>')">删除</a>
                                 </td>
                             </tr>
                         </s:iterator>
