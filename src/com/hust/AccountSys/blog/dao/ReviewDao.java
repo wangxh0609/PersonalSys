@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.hust.core.util.MyPoolManager;
 import com.hust.docMgr.blog.domain.ReviewBean;
 import com.hust.toolsbean.DB;
 
@@ -15,13 +16,7 @@ public class ReviewDao {
 	private Connection connection = null;
 	private PreparedStatement state=null;
 
-	public ReviewDao() {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			connection =DriverManager.getConnection("jdbc:mysql://localhost:3306/wangxh_forever", "javawangxh", "wang20110351");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	public ReviewDao() {		
 	}
 
 	public boolean operationReview(String operation, ReviewBean single) {
@@ -36,6 +31,7 @@ public class ReviewDao {
 		int mark=0;
 		//boolean flag =connection.executeUpdate(sql);
 		try{
+			connection=MyPoolManager.GetPoolInstance().getCurrentConnecton();
 			state=connection.prepareStatement(sql);	
 			state.setInt(1, single.getArticleId());
 			state.setString(2,single.getReAuthor());
@@ -49,7 +45,15 @@ public class ReviewDao {
 			mark = state.executeUpdate();
 		}catch(Exception e){
 			
-		}				
+		}finally{
+			try {
+				state.close();
+				MyPoolManager.GetPoolInstance().releaseConn(connection);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		return mark>0?true:false;
 	}
 
@@ -59,6 +63,7 @@ public class ReviewDao {
 		ReviewBean reviewBean = null;
 		ResultSet rs=null;
 		try{
+			connection=MyPoolManager.GetPoolInstance().getCurrentConnecton();
 			state=connection.prepareStatement(sql);
 			rs =state.executeQuery();// connection.executeQuery(sql);
 			//state.set			
@@ -80,6 +85,14 @@ public class ReviewDao {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				rs.close();
+				MyPoolManager.GetPoolInstance().releaseConn(connection);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return list;
 	}

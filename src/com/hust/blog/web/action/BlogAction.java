@@ -90,7 +90,7 @@ public class BlogAction extends BaseAction {
 		List wordList = wordDao.queryWord("sub");
 		session.setAttribute("wordList", wordList);
 		/* 从tb_article数据表中获取前5章推荐文章 */
-		articleDao.connect();
+		//articleDao.connect();
 		List artTJList = articleDao.queryArticle(4, "sub");
 		session.setAttribute("artTJList", artTJList);
 		/* 从tb_friend数据表中获取前5位好友信息 */

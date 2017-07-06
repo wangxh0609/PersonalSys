@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.hust.core.util.MyPoolManager;
 import com.hust.docMgr.blog.domain.MasterBean;
 import com.hust.toolsbean.DB;
 
@@ -15,14 +16,7 @@ public class LogonDao {
 	private Connection connection = null;
 	private PreparedStatement state=null;
 
-	public LogonDao() {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			connection =DriverManager.getConnection("jdbc:mysql://localhost:3306/wangxh_forever", "javawangxh", "wang20110351");
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public LogonDao() {		
 	}
 	
 	public MasterBean getMaster(){
@@ -30,6 +24,7 @@ public class LogonDao {
 		String sql="select * from tb_master";
 		ResultSet rs=null;
 		try{
+			connection=MyPoolManager.GetPoolInstance().getCurrentConnecton();
 			state=connection.prepareStatement(sql);
 			rs =state.executeQuery();// connection.executeQuery(sql);
 			//state.set			
@@ -45,6 +40,14 @@ public class LogonDao {
 			}
 		}catch(Exception e){
 			e.printStackTrace();
+		}finally{
+			try {
+				rs.close();
+				MyPoolManager.GetPoolInstance().releaseConn(connection);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return master;
 	}
@@ -55,6 +58,7 @@ public class LogonDao {
 			String sql="select * from tb_master where master_name='"+logoner.getMasterName()+"' and master_password='"+logoner.getMasterPass()+"'";
 			ResultSet rs=null;
 			try{
+				connection=MyPoolManager.GetPoolInstance().getCurrentConnecton();
 				state=connection.prepareStatement(sql);
 				rs =state.executeQuery();// connection.executeQuery(sql);
 				//state.set			
@@ -72,7 +76,7 @@ public class LogonDao {
 			}
 			try {
 				rs.close();
-				connection.close();
+				MyPoolManager.GetPoolInstance().releaseConn(connection);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

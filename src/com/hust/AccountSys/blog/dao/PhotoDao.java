@@ -8,29 +8,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.hust.core.util.MyPoolManager;
 import com.hust.docMgr.blog.domain.PhotoBean;
 
 public class PhotoDao {
 	private Connection connection = null;
 	private PreparedStatement state=null;
-	public PhotoDao() {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			connection =DriverManager.getConnection("jdbc:mysql://localhost:3306/wangxh_forever", "javawangxh", "wang20110351");
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public PhotoDao() {		
 	}
-
-	public void connect(){
-		try {			
-			connection =DriverManager.getConnection("jdbc:mysql://localhost:3306/wangxh_forever", "javawangxh", "wang20110351");
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+	
 	public boolean operationPhoto(String operation, PhotoBean single) {
 		String sql = "";
 		if (operation.equals("delete"))
@@ -38,6 +24,7 @@ public class PhotoDao {
 		if (operation.equals("upload"))
 			sql = "insert into tb_photo(photoAddr,photoTime,photoInfo,photoCreator) values ('"+ single.getPhotoAddr() + "','"+ single.getPhotoTime() + "','"+ single.getPhotoInfo() +"','"+single.getPhotoCreator()+ "')";
 		try{
+			connection=MyPoolManager.GetPoolInstance().getCurrentConnecton();
 			state=connection.prepareStatement(sql);				
 		}catch(Exception e){
 			
@@ -48,7 +35,16 @@ public class PhotoDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}//connection.executeUpdate(sql);			
+		}//connection.executeUpdate(sql);
+		finally{
+			try {
+				state.close();
+				MyPoolManager.GetPoolInstance().releaseConn(connection);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		return mark>0?true:false;
 	}
 
@@ -57,6 +53,7 @@ public class PhotoDao {
 		String sql = "select * from tb_photo where id=" + id;
 		ResultSet rs=null;
 		try{
+			connection=MyPoolManager.GetPoolInstance().getCurrentConnecton();
 			state=connection.prepareStatement(sql);
 			rs =state.executeQuery();// connection.executeQuery(sql);
 			//state.set			
@@ -73,6 +70,14 @@ public class PhotoDao {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				rs.close();
+				MyPoolManager.GetPoolInstance().releaseConn(connection);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return photoBean;
 	}
@@ -90,6 +95,7 @@ public class PhotoDao {
 		PhotoBean photoBean = null;
 		ResultSet rs=null;
 		try{
+			connection=MyPoolManager.GetPoolInstance().getCurrentConnecton();
 			state=connection.prepareStatement(sql);
 			rs =state.executeQuery();// connection.executeQuery(sql);
 			//state.set			
@@ -109,6 +115,14 @@ public class PhotoDao {
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
+			}finally{
+				try {
+					rs.close();
+					MyPoolManager.GetPoolInstance().releaseConn(connection);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}			
 		}
 		return list;
@@ -119,6 +133,7 @@ public class PhotoDao {
 		String sql = "select max(id) from tb_photo";
 		ResultSet rs=null;
 		try{
+			connection=MyPoolManager.GetPoolInstance().getCurrentConnecton();
 			state=connection.prepareStatement(sql);
 			rs =state.executeQuery();// connection.executeQuery(sql);
 			//state.set			
@@ -133,7 +148,8 @@ public class PhotoDao {
 				e.printStackTrace();
 			}finally{
 				try {
-					connection.close();
+					rs.close();
+					MyPoolManager.GetPoolInstance().releaseConn(connection);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

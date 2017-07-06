@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.hust.core.util.MyConnectionPool;
+import com.hust.core.util.MyPoolManager;
 import com.hust.docMgr.blog.domain.ArticleBean;
 import com.hust.toolsbean.DB;
 
@@ -16,30 +18,17 @@ public class ArticleDao {
 	private ArticleBean articleBean = null;
 	private Connection connection = null;
 	private PreparedStatement state=null;
-	public ArticleDao() {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			connection =DriverManager.getConnection("jdbc:mysql://localhost:3306/wangxh_forever", "javawangxh", "wang20110351");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	public ArticleDao() {		
 		
 	}
 
-	public void connect(){
-		try {
-			//Class.forName("com.mysql.jdbc.Driver");
-			connection =DriverManager.getConnection("jdbc:mysql://localhost:3306/wangxh_forever", "javawangxh", "wang20110351");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 	/**
 	 * @功能 实现对文章进行增、删、改的操作
 	 * @参数 oper为一个String类型变量，用来表示要进行的操作；single为ArticleBean类对象，用来存储某个文章的信息
 	 * @返回值 boolean型值
 	 */
-	public boolean operationArticle(String oper, ArticleBean single) {		
+	public boolean operationArticle(String oper, ArticleBean single) {	
+		
 		/* 生成SQL语句 */
 		String sql = null;
 		if (oper.equals("add"))					//发表新文章
@@ -53,13 +42,24 @@ public class ArticleDao {
 		
 		/* 执行SQL语句 */	
 		int mark=0;
-		//boolean flag =connection.executeUpdate(sql);
+		//boolean flag =connection.executeUpdate(sql);		
 		try{
+			
+			connection=MyPoolManager.GetPoolInstance().getCurrentConnecton();
 			state=connection.prepareStatement(sql);			
 			mark = state.executeUpdate();
 		}catch(Exception e){
 			
-		}				
+		}finally{
+			try {				
+				MyPoolManager.GetPoolInstance().releaseConn(connection);
+				state.close();				
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		return mark>0?true:false;
 	}
 
@@ -69,6 +69,7 @@ public class ArticleDao {
 	 * @返回值 List集合
 	 */
 	public List queryArticle(int typeId,String type) {
+		connection=MyPoolManager.GetPoolInstance().getCurrentConnecton();
 		List articlelist = new ArrayList();
 		String sql = "";
 		if (typeId <=0)	//select * from tablename order by orderfield desc/asc limit 0,15				//不按类别查询，查询出前3条记录
@@ -129,17 +130,13 @@ public class ArticleDao {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} finally{
-				try {
-					rs.close();
+				try {				
+					MyPoolManager.GetPoolInstance().releaseConn(connection);
+					rs.close();					
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
-				try {
-					connection.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				
 			}			
 		}
 		return articlelist;
@@ -154,6 +151,7 @@ public class ArticleDao {
 		String sql = "select * from tb_article where id='" + id + "'";
 		ResultSet rs=null;
 		try{
+			connection=MyPoolManager.GetPoolInstance().getCurrentConnecton();
 			state=connection.prepareStatement(sql);
 			rs =state.executeQuery();// connection.executeQuery(sql);
 			//state.set			
@@ -190,6 +188,14 @@ public class ArticleDao {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{			
+			try {
+				MyPoolManager.GetPoolInstance().releaseConn(connection);
+				rs.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}			
 		}
 		return articleBean;
 	}

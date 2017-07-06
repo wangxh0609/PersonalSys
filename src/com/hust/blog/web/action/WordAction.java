@@ -54,7 +54,7 @@ public class WordAction extends BaseAction {
 		return "wordShow";
 	}
 	/**
-	 * @ åŠŸèƒ½ åå°,éªŒè¯æ˜¯å¦ç™»å½•
+	 * @ ¹¦ÄÜ ºóÌ¨,ÑéÖ¤ÊÇ·ñµÇÂ¼
 	 * @return
 	 */
 	private Boolean isHaveLogin(){		
@@ -62,20 +62,20 @@ public class WordAction extends BaseAction {
 		if(obj!=null){
 			if(obj instanceof CrmStaff){
 				CrmStaff staff=(CrmStaff)obj;
-				if(!staff.getLoginName().equals("åŒ¿åç”¨æˆ·")){
+				if(!staff.getLoginName().equals("ÄäÃûÓÃ»§")){
 					return true;
 				}
 			}
 		}
 		return false;
 	}
-	//å‰å°éªŒè¯æ˜¯å¦ç™»é™†
+	//Ç°Ì¨ÑéÖ¤ÊÇ·ñµÇÂ½
 	private Boolean isHaveLoginqt(){		
 		Object obj=ActionContext.getContext().getSession().get("loginStaff");//
 		if(obj!=null){
 			if(obj instanceof CrmStaff){
 				CrmStaff staff=(CrmStaff)obj;
-				if(!staff.getLoginName().equals("åŒ¿åç”¨æˆ·")){
+				if(!staff.getLoginName().equals("ÄäÃûÓÃ»§")){
 					return true;
 				}
 			}
@@ -86,7 +86,7 @@ public class WordAction extends BaseAction {
 	public String addWordOther(){
 	    request=ServletActionContext.getRequest();
 		response=ServletActionContext.getResponse();
-		//ç•™è¨€éœ€è¦ç™»å½•
+		//ÁôÑÔĞèÒªµÇÂ¼
 		if(isHaveLoginqt()){
 			try {
 				return this.validateWord(request, response);
@@ -119,17 +119,17 @@ public class WordAction extends BaseAction {
 			content=new String(content.getBytes("ISO8859-1"), "UTF-8");
 			
 			if(author==null||author.equals(""))
-				author="åŒ¿åå¥½å‹";
+				author="ÄäÃûºÃÓÑ";
 			Object objid=request.getAttribute("parentId");
 			if(objid==null){
 				if(title==null||title.equals("")){
 					mark=false;
-					messages+="<li>è¯·è¾“å…¥ <b>ç•™è¨€æ ‡é¢˜ï¼</b></li>";
+					messages+="<li>ÇëÊäÈë <b>ÁôÑÔ±êÌâ£¡</b></li>";
 				}
 			}
 			if(content==null||content.equals("")){
 				mark=false;
-				messages+="<li>è¯·è¾“å…¥ <b>ç•™è¨€å†…å®¹ï¼</b></li>";
+				messages+="<li>ÇëÊäÈë <b>ÁôÑÔÄÚÈİ£¡</b></li>";
 			}
 			if(!mark){
 				request.setAttribute("messages",messages);
@@ -141,7 +141,7 @@ public class WordAction extends BaseAction {
 		}
 		public String addWord(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-			//å¯èƒ½æ˜¯å›å¤ç•™è¨€ å›å¤ç•™è¨€ä¼šæœ‰parentIdä¿¡æ¯ æ²¡æœ‰å°±ä¸æ˜¯  å›å¤çš„è¡¨å•?parentId=&wordAuthor=
+			//¿ÉÄÜÊÇ»Ø¸´ÁôÑÔ »Ø¸´ÁôÑÔ»áÓĞparentIdĞÅÏ¢ Ã»ÓĞ¾Í²»ÊÇ  »Ø¸´µÄ±íµ¥?parentId=&wordAuthor=
 			if(isHaveLoginqt()){
 			Object objid=request.getAttribute("parentId");
 			Object firstobjid=request.getAttribute("firstParentId");
@@ -159,11 +159,11 @@ public class WordAction extends BaseAction {
 			String content=request.getParameter("wordContent");//MyTools.toChinese(request.getParameter("wordContent"));		
 			String sdTime=MyTools.changeTime(new Date());		
 			if(author==null||author.equals("")){
-				author="åŒ¿åç”¨æˆ·";
+				author="ÄäÃûÓÃ»§";
 			}
 			wordSingle.setFirstParentId(firstParentId);
-			Object objlogin=ActionContext.getContext().getSession().get("loginStaff");//è®¿é—®è€…			
-			if(objlogin!=null){//è®¾ç½®ç•™è¨€äººä¿¡æ¯
+			Object objlogin=ActionContext.getContext().getSession().get("loginStaff");//·ÃÎÊÕß			
+			if(objlogin!=null){//ÉèÖÃÁôÑÔÈËĞÅÏ¢
 				if(objlogin instanceof CrmStaff){
 					CrmStaff login=(CrmStaff)objlogin;
 					wordSingle.setWordAuthor(login.getLoginName());
@@ -172,9 +172,9 @@ public class WordAction extends BaseAction {
 				wordSingle.setWordAuthor(author);
 			}			
 			WordDao wordDao=new WordDao();
-			Object objreVisitor=ActionContext.getContext().getSession().get("revisitorStaff");//è¢«è®¿é—®è€…
-			if(parentId==-1){//ä¸æ˜¯å›å¤ç•™è¨€,ç•™è¨€			    
-				if(objreVisitor!=null){//è®¾ç½®è¢«ç•™è¨€äººä¿¡æ¯
+			Object objreVisitor=ActionContext.getContext().getSession().get("revisitorStaff");//±»·ÃÎÊÕß
+			if(parentId==-1){//²»ÊÇ»Ø¸´ÁôÑÔ,ÁôÑÔ			    
+				if(objreVisitor!=null){//ÉèÖÃ±»ÁôÑÔÈËĞÅÏ¢
 					if(objreVisitor instanceof CrmStaff){
 						CrmStaff revisitor=(CrmStaff)objreVisitor;
 						wordSingle.setToName(revisitor.getLoginName());
@@ -183,19 +183,19 @@ public class WordAction extends BaseAction {
 				}	
 				wordSingle.setWordTitle(title);
 			}else{
-				if(objreVisitor!=null){//è®¾ç½®è¢«åšä¸»ä¿¡æ¯
+				if(objreVisitor!=null){//ÉèÖÃ±»²©Ö÷ĞÅÏ¢
 					if(objreVisitor instanceof CrmStaff){
 						CrmStaff revisitor=(CrmStaff)objreVisitor;						
 						wordSingle.setBozName(revisitor.getLoginName());
 					}
 				}	
-				wordSingle.setParentId(parentId);//å›å¤ç•™è¨€è®¾ç½®çˆ¶ä¿¡æ¯
-				//æŸ¥è¯¢ä»æ•°æ®åº“è·å¾—wordAuthorè¢«ç•™è¨€äººä¿¡æ¯
+				wordSingle.setParentId(parentId);//»Ø¸´ÁôÑÔÉèÖÃ¸¸ĞÅÏ¢
+				//²éÑ¯´ÓÊı¾İ¿â»ñµÃwordAuthor±»ÁôÑÔÈËĞÅÏ¢
 				WordBean wordObj=wordDao.getWordBeanByid(parentId);
 				if(wordObj!=null){				    
 				    wordSingle.setToName(wordObj.getWordAuthor());
 				}
-				wordSingle.setWordTitle("å›å¤ç•™è¨€");
+				wordSingle.setWordTitle("»Ø¸´ÁôÑÔ");
 			}						
 			wordSingle.setWordContent(content);
 			wordSingle.setWordTime(sdTime);
@@ -204,15 +204,15 @@ public class WordAction extends BaseAction {
 			boolean mark=wordDao.operationWord("add",wordSingle);
 			if(mark){
 				if(parentId==-1){
-					messages="<li>ç•™è¨€æˆåŠŸï¼</li>";
+					messages="<li>ÁôÑÔ³É¹¦£¡</li>";
 				}else{
-					messages="<li>å›å¤æˆåŠŸï¼</li>";
+					messages="<li>»Ø¸´³É¹¦£¡</li>";
 				}
 				request.setAttribute("messages",messages);
 				return "success";
 			}
 			else{				
-				messages="<li>ç•™è¨€å¤±è´¥ï¼</li>";
+				messages="<li>ÁôÑÔÊ§°Ü£¡</li>";
 				request.setAttribute("messages",messages);
 				return "fail";
 			}	
@@ -255,14 +255,14 @@ public class WordAction extends BaseAction {
 				wordBean.setId(MyTools.strToint(request.getParameter("id")));		
 				boolean mark=wordDao.operationWord("delete", wordBean);		
 				if (mark) {			
-					messages+="<li>åˆ é™¤ç•™è¨€æˆåŠŸï¼</li>";
-					href="<a href='"+request.getContextPath()+"/sys/word_admin_wordList'>[ç»§ç»­åˆ é™¤å…¶ä»–ç•™è¨€]</a>";
+					messages+="<li>É¾³ıÁôÑÔ³É¹¦£¡</li>";
+					href="<a href='"+request.getContextPath()+"/sys/word_admin_wordList'>[¼ÌĞøÉ¾³ıÆäËûÁôÑÔ]</a>";
 					request.setAttribute("messages",messages);
 					request.setAttribute("href",href);
 					return "successAdmin";			
 				} else {
-					messages+="<li>åˆ é™¤ç•™è¨€å¤±è´¥ï¼</li>";
-					href="<a href='javascript:window.history.go(-1)'>[è¿”å›]</a>";
+					messages+="<li>É¾³ıÁôÑÔÊ§°Ü£¡</li>";
+					href="<a href='javascript:window.history.go(-1)'>[·µ»Ø]</a>";
 				}
 				request.setAttribute("messages",messages);
 				request.setAttribute("href",href);
@@ -274,14 +274,14 @@ public class WordAction extends BaseAction {
 		}
 		
 		/**
-		 * @åŠŸèƒ½ éªŒè¯å±•å¼€æ—¶wordId çš„çˆ¶æ˜¯å¦æ˜¯-1
+		 * @¹¦ÄÜ ÑéÖ¤Õ¹¿ªÊ±wordId µÄ¸¸ÊÇ·ñÊÇ-1
 		 * @return
 		 */
 		public boolean validateWordExpand(int wordId){
 			return true;
 		}
 		/**
-		 * @åŠŸèƒ½ å±•å¼€å…¨éƒ¨
+		 * @¹¦ÄÜ Õ¹¿ªÈ«²¿
 		 */
 		public void expandAll(){
 			request=ServletActionContext.getRequest();
@@ -298,8 +298,8 @@ public class WordAction extends BaseAction {
 				out = response.getWriter();
 			} catch (IOException e) {				
 			}
-			if(validateWordExpand(wordId)){//é€šè¿‡éªŒè¯
-				//ä»æ•°æ®åº“æŸ¥è¯¢
+			if(validateWordExpand(wordId)){//Í¨¹ıÑéÖ¤
+				//´ÓÊı¾İ¿â²éÑ¯
 				WordDao wordDao = new WordDao();
 				List<WordBean> wordBeanList=wordDao.getAllByParenWordId(wordId);
 				
@@ -307,7 +307,7 @@ public class WordAction extends BaseAction {
 					StringBuilder msg=new StringBuilder("");
 					for(int i=0;i<wordBeanList.size();i++){
 						WordBean temBean=wordBeanList.get(i);
-						msg.append("<tr class='wordclass' id='reply_"+wordId+"_"+temBean.getId()+"'><td style='text-indent:35' colspan='2' valign='top'>"+temBean.getWordAuthor()+"å›å¤"+temBean.getToName()+"ï¼š"+temBean.getWordContent()+"</td></tr>\n");
+						msg.append("<tr class='wordclass' id='reply_"+wordId+"_"+temBean.getId()+"'><td style='text-indent:35' colspan='2' valign='top'>"+temBean.getWordAuthor()+"»Ø¸´"+temBean.getToName()+"£º"+temBean.getWordContent()+"</td></tr>\n");
 					}
 					//System.out.println(msg);
 					out.print(msg.toString());

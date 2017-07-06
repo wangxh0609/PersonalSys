@@ -29,7 +29,7 @@ public class FriendAction extends BaseAction {
 	}	
 	
 	/**
-	 * @ åŠŸèƒ½ åå°,éªŒè¯æ˜¯å¦ç™»å½•
+	 * @ ¹¦ÄÜ ºóÌ¨,ÑéÖ¤ÊÇ·ñµÇÂ¼
 	 * @return
 	 */
 	private Boolean isHaveLogin(){		
@@ -37,7 +37,7 @@ public class FriendAction extends BaseAction {
 		if(obj!=null){
 			if(obj instanceof CrmStaff){
 				CrmStaff staff=(CrmStaff)obj;
-				if(!staff.getLoginName().equals("åŒ¿åç”¨æˆ·")){
+				if(!staff.getLoginName().equals("ÄäÃûÓÃ»§")){
 					return true;
 				}
 			}
@@ -69,7 +69,7 @@ public class FriendAction extends BaseAction {
 		return "friendList";
 	}
 	/**
-	 * @åŠŸèƒ½ åå°-ä¿®æ”¹å¥½å‹ä¿¡æ¯
+	 * @¹¦ÄÜ ºóÌ¨-ĞŞ¸ÄºÃÓÑĞÅÏ¢
 	 */
 	public String friendModify() {
 		request=ServletActionContext.getRequest();
@@ -96,21 +96,21 @@ public class FriendAction extends BaseAction {
 						mark=friendDao.operationFriend("modify",friendBean);
 					}
 					if (mark) {
-						messages="<li>ä¿®æ”¹æˆåŠŸï¼</li>";
-						href="<a href='"+request.getContextPath()+"/sys/friend_admin_adminListFriend'>[ç»§ç»­ä¿®æ”¹å…¶ä»–å¥½å‹]</a>";
+						messages="<li>ĞŞ¸Ä³É¹¦£¡</li>";
+						href="<a href='"+request.getContextPath()+"/sys/friend_admin_adminListFriend'>[¼ÌĞøĞŞ¸ÄÆäËûºÃÓÑ]</a>";
 						request.setAttribute("messages",messages);
 						request.setAttribute("href",href);
 						return "successAdmin";				
 					} else {
-						messages="<li>ä¿®æ”¹å¤±è´¥ï¼</li>";
-						href="<a href='javascript:window.history.go(-1)>[è¿”å›]</a>";
+						messages="<li>ĞŞ¸ÄÊ§°Ü£¡</li>";
+						href="<a href='javascript:window.history.go(-1)>[·µ»Ø]</a>";
 						
 					}
 					request.setAttribute("messages",messages);
 					request.setAttribute("href",href);
 				}
 				else{
-					href="<a href='javascript:window.history.go(-1)>[è¿”å›]</a>";
+					href="<a href='javascript:window.history.go(-1)>[·µ»Ø]</a>";
 					request.setAttribute("href",href);
 				}			
 				return "failAdmin";
@@ -121,7 +121,7 @@ public class FriendAction extends BaseAction {
 		}
 	}
 	/**
-	 * @åŠŸèƒ½ å‰å°-æŸ¥è¯¢æŸä¸ªå¥½å‹ä¿¡æ¯
+	 * @¹¦ÄÜ Ç°Ì¨-²éÑ¯Ä³¸öºÃÓÑĞÅÏ¢
 	 */
 	public String friendSingle() {
 		String strId=request.getParameter("id");
@@ -132,7 +132,7 @@ public class FriendAction extends BaseAction {
 		return "friendSingle";		
 	}
 	/**
-	 * @åŠŸèƒ½ åå°-æŸ¥è¯¢æŸä¸ªå¥½å‹ä¿¡æ¯
+	 * @¹¦ÄÜ ºóÌ¨-²éÑ¯Ä³¸öºÃÓÑĞÅÏ¢
 	 */
 	public String adminSingleFriend() {
 		request=ServletActionContext.getRequest();
@@ -149,7 +149,7 @@ public class FriendAction extends BaseAction {
 		}		
 	}
 	/**
-	 * @åŠŸèƒ½ åå°-åˆ é™¤å¥½å‹ä¿¡æ¯
+	 * @¹¦ÄÜ ºóÌ¨-É¾³ıºÃÓÑĞÅÏ¢
 	 */
 	public String deleteFriend(){
 		request=ServletActionContext.getRequest();
@@ -162,15 +162,15 @@ public class FriendAction extends BaseAction {
 		friendBean.setId(Integer.parseInt((request.getParameter("id"))));		
 		boolean mark=friendDao.operationFriend("delete",friendBean);		
 		if (mark) {			
-			messages+="<li>åˆ é™¤å¥½å‹æˆåŠŸï¼</li>";
-			href="<a href='"+request.getContextPath()+"/sys/friend_admin_adminListFriend'>[ç»§ç»­åˆ é™¤å…¶ä»–å¥½å‹]</a>";
+			messages+="<li>É¾³ıºÃÓÑ³É¹¦£¡</li>";
+			href="<a href='"+request.getContextPath()+"/sys/friend_admin_adminListFriend'>[¼ÌĞøÉ¾³ıÆäËûºÃÓÑ]</a>";
 			request.setAttribute("messages",messages);
 			request.setAttribute("href",href);
 			return "successAdmin";
 		
 		} else {
-			messages+="<li>åˆ é™¤å¥½å‹å¤±è´¥ï¼</li>";
-			href="<a href='javascript:window.history.go(-1)'>[è¿”å›]</a>";			
+			messages+="<li>É¾³ıºÃÓÑÊ§°Ü£¡</li>";
+			href="<a href='javascript:window.history.go(-1)'>[·µ»Ø]</a>";			
 		}
 		request.setAttribute("messages",messages);
 		request.setAttribute("href",href);		
@@ -181,7 +181,7 @@ public class FriendAction extends BaseAction {
 		}
 	}
 	/**
-	 * @åŠŸèƒ½ éªŒè¯è¡¨å•æ•°æ®
+	 * @¹¦ÄÜ ÑéÖ¤±íµ¥Êı¾İ
 	 */
 	public boolean validateFriend() {
 		boolean mark=true;
@@ -200,25 +200,25 @@ public class FriendAction extends BaseAction {
 		
 		if(name==null||name.equals("")){
 			mark=false;
-			messages+="<li>è¯·è¾“å…¥ <b>å¥½å‹å§“åï¼</b></li>";
+			messages+="<li>ÇëÊäÈë <b>ºÃÓÑĞÕÃû£¡</b></li>";
 		}
 		if(sex==null||sex.equals("")){
 			mark=false;
-			messages+="<li>è¯·é€‰æ‹© <b>å¥½å‹æ€§åˆ«ï¼</b></li>";
+			messages+="<li>ÇëÑ¡Ôñ <b>ºÃÓÑĞÔ±ğ£¡</b></li>";
 		}
 		if(oicq==null||oicq.equals("")){
 			mark=false;
-			messages+="<li>è¯·è¾“å…¥ <b>QQ å·ç ï¼</b></li>";
+			messages+="<li>ÇëÊäÈë <b>QQ ºÅÂë£¡</b></li>";
 		}
 		if(blog==null||blog.equals("")){
 			mark=false;
-			messages+="<li>è¯·è¾“å…¥ <b>BLOGåœ°å€ï¼</b></li>";
+			messages+="<li>ÇëÊäÈë <b>BLOGµØÖ·£¡</b></li>";
 		}
 		request.setAttribute("messages",messages);
 		return mark;
 	}
 	/**
-	 * @åŠŸèƒ½ åå°-æ·»åŠ å¥½å‹ä¿¡æ¯
+	 * @¹¦ÄÜ ºóÌ¨-Ìí¼ÓºÃÓÑĞÅÏ¢
 	 */
 	public String addFriend() {
 		request=ServletActionContext.getRequest();
@@ -231,22 +231,22 @@ public class FriendAction extends BaseAction {
 			if(flag){
 				FriendDao friendDao = new FriendDao();						
 				boolean mark=friendDao.operationFriend("add",friendBean);
-				friendDao.closeConnection();
+				//friendDao.closeConnection();
 				if(mark){
-					messages = "<li>æ·»åŠ å¥½å‹æˆåŠŸï¼</li>";
-					href="<a href='"+request.getContextPath()+"/sys/friend_admin_friendAdd'>[ç»§ç»­æ·»åŠ ]</a>";
+					messages = "<li>Ìí¼ÓºÃÓÑ³É¹¦£¡</li>";
+					href="<a href='"+request.getContextPath()+"/sys/friend_admin_friendAdd'>[¼ÌĞøÌí¼Ó]</a>";
 					request.setAttribute("messages",messages);
 					request.setAttribute("href",href);	
 					return "successAdmin";
 				}
 				else{
-					messages = "<li>æ·»åŠ å¥½å‹å¤±è´¥ï¼</li>";
-					href="<a href='javascript:window.history.go(-1)'>[è¿”å›]</a>";				
+					messages = "<li>Ìí¼ÓºÃÓÑÊ§°Ü£¡</li>";
+					href="<a href='javascript:window.history.go(-1)'>[·µ»Ø]</a>";				
 				}
 				request.setAttribute("messages",messages);
 			}
 			else{
-				href="<a href='javascript:window.history.go(-1)'>[è¿”å›]</a>";			
+				href="<a href='javascript:window.history.go(-1)'>[·µ»Ø]</a>";			
 			}
 			request.setAttribute("href",href);						
 			return "failAdmin";
@@ -256,7 +256,7 @@ public class FriendAction extends BaseAction {
 		}
 	}
 	/**
-	 * @åŠŸèƒ½ å‰å°-æŸ¥è¯¢æ‰€æœ‰å¥½å‹
+	 * @¹¦ÄÜ Ç°Ì¨-²éÑ¯ËùÓĞºÃÓÑ
 	 */
 	public String listFriend(HttpServletRequest request,HttpServletResponse response) throws IOException, ServletException {
 		FriendDao friendDao=new FriendDao();
@@ -267,7 +267,7 @@ public class FriendAction extends BaseAction {
 		//rd.forward(request, response);		
 	}
 	/**
-	 * @åŠŸèƒ½ åå°-æŸ¥è¯¢æ‰€æœ‰å¥½å‹
+	 * @¹¦ÄÜ ºóÌ¨-²éÑ¯ËùÓĞºÃÓÑ
 	 */
 	public String adminListFriend() {
 		request=ServletActionContext.getRequest();

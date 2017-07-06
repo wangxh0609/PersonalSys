@@ -42,7 +42,7 @@ public class BlogLoginAction extends BaseAction {
 	private HttpServletResponse response = null;
 
 	public String islogon() {
-		//loginStaff ç™»é™†è€…ä¿¡æ¯    revisitorStaff è¢«è®¿é—®è€…ä¿¡æ¯
+		//loginStaff µÇÂ½ÕßĞÅÏ¢    revisitorStaff ±»·ÃÎÊÕßĞÅÏ¢
 		request = ServletActionContext.getRequest();
 		response = ServletActionContext.getResponse();
 		Object obj = ActionContext.getContext().getSession().get("loginStaff");
@@ -77,8 +77,8 @@ public class BlogLoginAction extends BaseAction {
 			if (staff.getLoginName().equals("wangxh")) {
 				CrmStaff findStaff = staffService.login(staff);
 				if (findStaff != null) {
-					//ä¸ºäº†åšä¸»ç™»é™†åå›å¤ç•™è¨€ä¸éœ€è¦å†æ¬¡ç™»é™†ï¼Œéœ€è¦è®¾ç½®revisitorStaff setNeedEncryä¸ºfalse,
-					//ä¸ç„¶åœ¨è¿”å›åšå®¢é¦–é¡µçš„æ—¶å€™ä¼šè®¤ä¸ºæ˜¯ä»ç½‘é¡µä¸Šç›´æ¥ç™»é™†ï¼Œå°±éœ€è¦å†æ¬¡ç™»é™†
+					//ÎªÁË²©Ö÷µÇÂ½ºó»Ø¸´ÁôÑÔ²»ĞèÒªÔÙ´ÎµÇÂ½£¬ĞèÒªÉèÖÃrevisitorStaff setNeedEncryÎªfalse,
+					//²»È»ÔÚ·µ»Ø²©¿ÍÊ×Ò³µÄÊ±ºò»áÈÏÎªÊÇ´ÓÍøÒ³ÉÏÖ±½ÓµÇÂ½£¬¾ÍĞèÒªÔÙ´ÎµÇÂ½
 					Object revisitor=ActionContext.getContext().getSession().get("revisitorStaff");
 					if(revisitor!=null){
 						if(revisitor instanceof CrmStaff){
@@ -93,7 +93,7 @@ public class BlogLoginAction extends BaseAction {
 				}
 			}
 		}
-		request.setAttribute("messages", "<li>è¾“å…¥çš„ç”¨æˆ·åæˆ–å¯†ç é”™è¯¯ï¼</li>");
+		request.setAttribute("messages", "<li>ÊäÈëµÄÓÃ»§Ãû»òÃÜÂë´íÎó£¡</li>");
 		return "logon";
 	}
 
@@ -104,11 +104,11 @@ public class BlogLoginAction extends BaseAction {
 		String password = request.getParameter("userPass");
 		if (name == null || name.equals("")) {
 			mark = false;
-			messages += "<li>è¯·è¾“å…¥ <b>ç”¨æˆ·åï¼</b></li>";
+			messages += "<li>ÇëÊäÈë <b>ÓÃ»§Ãû£¡</b></li>";
 		}
 		if (password == null || password.equals("")) {
 			mark = false;
-			messages += "<li>è¯·è¾“å…¥ <b>å¯†&nbsp;&nbsp;ç ï¼</b></li>";
+			messages += "<li>ÇëÊäÈë <b>ÃÜ&nbsp;&nbsp;Âë£¡</b></li>";
 		}
 		request.setAttribute("messages", messages);
 		return mark;

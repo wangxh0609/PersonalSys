@@ -70,7 +70,7 @@ public class ArticleAction extends BaseAction {
 	}
 
 	/**
-	 * @ åŠŸèƒ½ åå°,éªŒè¯æ˜¯å¦ç™»å½•
+	 * @ ¹¦ÄÜ ºóÌ¨,ÑéÖ¤ÊÇ·ñµÇÂ¼
 	 * 
 	 * @return
 	 */
@@ -79,20 +79,20 @@ public class ArticleAction extends BaseAction {
 		if (obj != null) {
 			if (obj instanceof CrmStaff) {
 				CrmStaff staff = (CrmStaff) obj;
-				if (!staff.getLoginName().equals("åŒ¿åç”¨æˆ·")) {
+				if (!staff.getLoginName().equals("ÄäÃûÓÃ»§")) {
 					return true;
 				}
 			}
 		}
 		return false;
 	}
-	//å‰å°
+	//Ç°Ì¨
 	private Boolean isHaveLoginqt() {
 		Object obj = ActionContext.getContext().getSession().get("loginStaff");
 		if (obj != null) {
 			if (obj instanceof CrmStaff) {
 				CrmStaff staff = (CrmStaff) obj;
-				if (!staff.getLoginName().equals("åŒ¿åç”¨æˆ·")) {
+				if (!staff.getLoginName().equals("ÄäÃûÓÃ»§")) {
 					return true;
 				}
 			}
@@ -134,7 +134,7 @@ public class ArticleAction extends BaseAction {
 	}
 
 	/**
-	 * @åŠŸèƒ½ éªŒè¯è¯„è®ºä¿¡æ¯
+	 * @¹¦ÄÜ ÑéÖ¤ÆÀÂÛĞÅÏ¢
 	 */
 	public String validateFollow(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -144,13 +144,13 @@ public class ArticleAction extends BaseAction {
 		String content = request.getParameter("reContent");
 		if (content == null || content.equals("")) {
 			mark = false;
-			messages = "<li>è¯·è¾“å…¥ <b>è¯„è®ºå†…å®¹ï¼</b></li>";
+			messages = "<li>ÇëÊäÈë <b>ÆÀÂÛÄÚÈİ£¡</b></li>";
 		}
 		if (mark) {
 
 			if (content.length() > 1000) {
 				mark = false;
-				messages = "<li><b>è¯„è®ºå†…å®¹</b> æœ€å¤šå…è®¸è¾“å…¥1000ä¸ªå­—ç¬¦ï¼</li>";
+				messages = "<li><b>ÆÀÂÛÄÚÈİ</b> ×î¶àÔÊĞíÊäÈë1000¸ö×Ö·û£¡</li>";
 			}
 		}
 		if (!mark) {
@@ -162,7 +162,7 @@ public class ArticleAction extends BaseAction {
 	}
 
 	/**
-	 * @åŠŸèƒ½ æ·»åŠ æ–‡ç« è¯„è®º
+	 * @¹¦ÄÜ Ìí¼ÓÎÄÕÂÆÀÂÛ
 	 */
 	public String followAdd(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -172,7 +172,7 @@ public class ArticleAction extends BaseAction {
 		String content = request.getParameter("reContent");
 		String today = MyTools.changeTime(new Date());
 		if (author == null || author.equals(""))
-			author = "åŒ¿åå¥½å‹";
+			author = "ÄäÃûºÃÓÑ";
 
 		ReviewBean reviewBean = new ReviewBean();
 		reviewBean.setArticleId(id);
@@ -185,22 +185,22 @@ public class ArticleAction extends BaseAction {
 		boolean mark = reviewDao.operationReview("add", reviewBean);
 		if (mark) {
 			// forward="/front/article/success.jsp";
-			messages = "<li>å‘è¡¨è¯„è®ºæˆåŠŸï¼</li>";
+			messages = "<li>·¢±íÆÀÂÛ³É¹¦£¡</li>";
 			request.setAttribute("messages", messages);
 			return "success";
 		} else {
 			// forward="/front/article/error.jsp";
-			messages = "<li>å‘è¡¨è¯„è®ºå¤±è´¥ï¼</li>";
+			messages = "<li>·¢±íÆÀÂÛÊ§°Ü£¡</li>";
 			request.setAttribute("messages", messages);
 			return "fail";
 		}
 	}
 
 	/**
-	 * @åŠŸèƒ½ é˜…è¯»æ–‡ç« 
-	 * @å®ç° 1.å¢åŠ æ–‡ç« é˜…è¯»æ¬¡æ•°<br>
-	 * 	2.è·å–æŒ‡å®šæ–‡ç« ä¿¡æ¯<br>
-	 * 	3.è·å–å¯¹è¯¥æ–‡ç« çš„æ‰€æœ‰è¯„è®º
+	 * @¹¦ÄÜ ÔÄ¶ÁÎÄÕÂ
+	 * @ÊµÏÖ 1.Ôö¼ÓÎÄÕÂÔÄ¶Á´ÎÊı<br>
+	 * 	2.»ñÈ¡Ö¸¶¨ÎÄÕÂĞÅÏ¢<br>
+	 * 	3.»ñÈ¡¶Ô¸ÃÎÄÕÂµÄËùÓĞÆÀÂÛ
 	 */
 	public String readArticle(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -213,9 +213,9 @@ public class ArticleAction extends BaseAction {
 		int id = Integer.parseInt(strId);
 		articleBean.setId(id);
 
-		articleDao.operationArticle("readTimes", articleBean); // ç´¯åŠ é˜…è¯»æ¬¡æ•°
-		articleBean = articleDao.queryArticleSingle(id); // æŸ¥è¯¢æŒ‡å®šæ–‡ç« çš„è¯¦ç»†å†…å®¹
-		session.setAttribute("readSingle", articleBean); // ä¿å­˜articleBeanåˆ°requestå¯¹è±¡ä¸­
+		articleDao.operationArticle("readTimes", articleBean); // ÀÛ¼ÓÔÄ¶Á´ÎÊı
+		articleBean = articleDao.queryArticleSingle(id); // ²éÑ¯Ö¸¶¨ÎÄÕÂµÄÏêÏ¸ÄÚÈİ
+		session.setAttribute("readSingle", articleBean); // ±£´æarticleBeanµ½request¶ÔÏóÖĞ
 
 		List reviewlist = reviewDao.queryReview(id);
 		session.setAttribute("reviewlist", reviewlist);
@@ -226,7 +226,7 @@ public class ArticleAction extends BaseAction {
 	}
 
 	/**
-	 * @åŠŸèƒ½ ä¿®æ”¹æ–‡ç« 
+	 * @¹¦ÄÜ ĞŞ¸ÄÎÄÕÂ
 	 */
 	public String articleModify() {
 		request = ServletActionContext.getRequest();
@@ -255,22 +255,22 @@ public class ArticleAction extends BaseAction {
 					}
 					boolean mark = articleDao.operationArticle("modify", articleBean);
 					if (mark) {
-						messages = "<li>ä¿®æ”¹æˆåŠŸï¼</li>";
+						messages = "<li>ĞŞ¸Ä³É¹¦£¡</li>";
 						href = "<a href='" + request.getContextPath() + "/sys/article_admin_adminSelectList?typeId="
-								+ session.getAttribute("showTypeId") + "'>[ç»§ç»­ä¿®æ”¹å…¶ä»–æ–‡ç« ]</a>";
+								+ session.getAttribute("showTypeId") + "'>[¼ÌĞøĞŞ¸ÄÆäËûÎÄÕÂ]</a>";
 						// forward="/admin/success.jsp";
 						request.setAttribute("messages", messages);
 						request.setAttribute("href", href);
 						return "successAdmin";
 					} else {
-						messages = "<li>ä¿®æ”¹å¤±è´¥ï¼</li>";
-						href = "<a href='javascript:window.history.go(-1)'>[è¿”å›]</a>";
+						messages = "<li>ĞŞ¸ÄÊ§°Ü£¡</li>";
+						href = "<a href='javascript:window.history.go(-1)'>[·µ»Ø]</a>";
 						// forward="/admin/error.jsp";
 					}
 					request.setAttribute("messages", messages);
 					request.setAttribute("href", href);
 				} else {
-					href = "<a href='javascript:window.history.go(-1)>[è¿”å›]</a>";
+					href = "<a href='javascript:window.history.go(-1)>[·µ»Ø]</a>";
 					// forward="/admin/error.jsp";
 					request.setAttribute("href", href);
 				}
@@ -283,7 +283,7 @@ public class ArticleAction extends BaseAction {
 	}
 
 	/**
-	 * @åŠŸèƒ½ åå°-åˆ é™¤æ–‡ç« 
+	 * @¹¦ÄÜ ºóÌ¨-É¾³ıÎÄÕÂ
 	 */
 	public String deleteArticle() {
 
@@ -299,15 +299,15 @@ public class ArticleAction extends BaseAction {
 			boolean mark = articleDao.operationArticle("delete", articleBean);
 			if (mark) {
 				String typeId = String.valueOf(request.getSession().getAttribute("showTypeId"));
-				messages += "<li>åˆ é™¤æ–‡ç« æˆåŠŸï¼</li>";
+				messages += "<li>É¾³ıÎÄÕÂ³É¹¦£¡</li>";
 				href = "<a href='" + request.getContextPath() + "/sys/article_admin_adminSelectList?typeId=" + typeId
-						+ "'>[ç»§ç»­åˆ é™¤å…¶ä»–æ–‡ç« ]</a>";
+						+ "'>[¼ÌĞøÉ¾³ıÆäËûÎÄÕÂ]</a>";
 				request.setAttribute("messages", messages);
 				request.setAttribute("href", href);
 				return "successAdmin";
 			} else {
-				messages += "<li>åˆ é™¤æ–‡ç« å¤±è´¥ï¼</li>";
-				href = "<a href='javascript:window.history.go(-1)'>[è¿”å›]</a>";
+				messages += "<li>É¾³ıÎÄÕÂÊ§°Ü£¡</li>";
+				href = "<a href='javascript:window.history.go(-1)'>[·µ»Ø]</a>";
 				// forward="/admin/error.jsp";
 			}
 			request.setAttribute("messages", messages);
@@ -320,7 +320,7 @@ public class ArticleAction extends BaseAction {
 	}
 
 	/**
-	 * @åŠŸèƒ½ éªŒè¯å‘è¡¨æ–‡ç« ä¿¡æ¯
+	 * @¹¦ÄÜ ÑéÖ¤·¢±íÎÄÕÂĞÅÏ¢
 	 */
 	public boolean validateArticle() {
 		boolean mark = true;
@@ -334,32 +334,32 @@ public class ArticleAction extends BaseAction {
 
 		if (typeId == null || typeId.equals("")) {
 			mark = false;
-			messages += "<li>è¯·é€‰æ‹© <b>æ–‡ç« ç±»åˆ«ï¼</b></li>";
+			messages += "<li>ÇëÑ¡Ôñ <b>ÎÄÕÂÀà±ğ£¡</b></li>";
 		}
 		if (title == null || title.equals("")) {
 			mark = false;
-			messages += "<li>è¯·è¾“å…¥ <b>æ–‡ç« æ ‡é¢˜ï¼</b></li>";
+			messages += "<li>ÇëÊäÈë <b>ÎÄÕÂ±êÌâ£¡</b></li>";
 		}
 		if (create == null || create.equals("")) {
 			mark = false;
-			messages += "<li>è¯·é€‰æ‹© <b>æ–‡ç« æ¥æºï¼</b></li>";
+			messages += "<li>ÇëÑ¡Ôñ <b>ÎÄÕÂÀ´Ô´£¡</b></li>";
 		}
 		if (info == null || info.equals("")) {
 			mark = false;
-			messages += "<li>è¯·è¾“å…¥ <b>æ–‡ç« æè¿°ï¼</b></li>";
+			messages += "<li>ÇëÊäÈë <b>ÎÄÕÂÃèÊö£¡</b></li>";
 		}
 		if (content == null || content.equals("")) {
 			mark = false;
-			messages += "<li>è¯·è¾“å…¥ <b>æ–‡ç« å†…å®¹ï¼</b></li>";
+			messages += "<li>ÇëÊäÈë <b>ÎÄÕÂÄÚÈİ£¡</b></li>";
 		}
 		if (mark) {
 			if (title.length() > 20) {
 				mark = false;
-				messages += "<li><b>æ–‡ç« æ ‡é¢˜</b> æœ€å¤šå…è®¸è¾“å…¥20ä¸ªå­—ç¬¦ï¼</li>";
+				messages += "<li><b>ÎÄÕÂ±êÌâ</b> ×î¶àÔÊĞíÊäÈë20¸ö×Ö·û£¡</li>";
 			}
 			if (content.length() > 65535) {
 				mark = false;
-				messages += "<li><b>æ–‡ç« å†…å®¹</b> æœ€å¤šå…è®¸è¾“å…¥65535ä¸ªå­—ç¬¦ï¼</li>";
+				messages += "<li><b>ÎÄÕÂÄÚÈİ</b> ×î¶àÔÊĞíÊäÈë65535¸ö×Ö·û£¡</li>";
 			}
 		}
 		request.setAttribute("messages", messages);
@@ -376,7 +376,7 @@ public class ArticleAction extends BaseAction {
 	}
 
 	/**
-	 * @åŠŸèƒ½ åå°-å¢åŠ æ–‡ç« 
+	 * @¹¦ÄÜ ºóÌ¨-Ôö¼ÓÎÄÕÂ
 	 */
 	public String addArticle() {
 		request = ServletActionContext.getRequest();
@@ -401,21 +401,21 @@ public class ArticleAction extends BaseAction {
 				ArticleDao articleDao = new ArticleDao();
 				boolean mark = articleDao.operationArticle("add", articleBean);
 				if (mark) {
-					messages = "<li>å‘è¡¨æ–‡ç« æˆåŠŸï¼</li>";
-					href = "<a href='" + request.getContextPath() + "/sys/article_admin_articleAdd'>[ç»§ç»­å‘è¡¨]</a>";
+					messages = "<li>·¢±íÎÄÕÂ³É¹¦£¡</li>";
+					href = "<a href='" + request.getContextPath() + "/sys/article_admin_articleAdd'>[¼ÌĞø·¢±í]</a>";
 					request.setAttribute("messages", messages);
 					request.setAttribute("href", href);
 					// forward="/admin/success.jsp";
 					return "successAdmin";
 				} else {
-					messages = "<li>å‘è¡¨æ–‡ç« å¤±è´¥ï¼</li>";
-					href = "<a href='javascript:window.history.go(-1)'>[è¿”å›]</a>";
+					messages = "<li>·¢±íÎÄÕÂÊ§°Ü£¡</li>";
+					href = "<a href='javascript:window.history.go(-1)'>[·µ»Ø]</a>";
 					request.setAttribute("messages", messages);
 					request.setAttribute("href", href);
 				}
 
 			} else {
-				href = "<a href='javascript:window.history.go(-1)'>[è¿”å›]</a>";
+				href = "<a href='javascript:window.history.go(-1)'>[·µ»Ø]</a>";
 				request.setAttribute("href", href);
 			}
 			return "failAdmin";
@@ -426,7 +426,7 @@ public class ArticleAction extends BaseAction {
 	}
 
 	/**
-	 * @åŠŸèƒ½ å®ç°åå°æ–‡ç« ç®¡ç†ä¸­çš„æ–‡ç« æµè§ˆåŠŸèƒ½
+	 * @¹¦ÄÜ ÊµÏÖºóÌ¨ÎÄÕÂ¹ÜÀíÖĞµÄÎÄÕÂä¯ÀÀ¹¦ÄÜ
 	 */
 	public String adminSelectList() {
 		request = ServletActionContext.getRequest();
@@ -457,7 +457,7 @@ public class ArticleAction extends BaseAction {
 		int id = MyTools.strToint(request.getParameter("id"));
 		ArticleDao articleDao = new ArticleDao();
 
-		ArticleBean articleBean = articleDao.queryArticleSingle(id); // æŸ¥è¯¢æŒ‡å®šæ–‡ç« çš„è¯¦ç»†å†…å®¹
+		ArticleBean articleBean = articleDao.queryArticleSingle(id); // ²éÑ¯Ö¸¶¨ÎÄÕÂµÄÏêÏ¸ÄÚÈİ
 		request.setAttribute("articleSingle", articleBean);
 		return "adminarticleSingle";
 		// RequestDispatcher
@@ -466,7 +466,7 @@ public class ArticleAction extends BaseAction {
 	}
 
 	/**
-	 * @åŠŸèƒ½ ä»æ•°æ®è¡¨ä¸­è·å–æŸç±»åˆ«ä¸‹çš„æ‰€æœ‰æ–‡ç« 
+	 * @¹¦ÄÜ ´ÓÊı¾İ±íÖĞ»ñÈ¡Ä³Àà±ğÏÂµÄËùÓĞÎÄÕÂ
 	 */
 	public String selectArticle(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -493,18 +493,18 @@ public class ArticleAction extends BaseAction {
 		}
 		if (typeName == null || typeName.equals("")) {
 			mark = false;
-			messages += "<li>è¯·è¾“å…¥ <b>ç±»åˆ«åç§°ï¼</b></li>";
+			messages += "<li>ÇëÊäÈë <b>Àà±ğÃû³Æ£¡</b></li>";
 		}
 		if (typeInfo == null || typeInfo.equals("")) {
 			mark = false;
-			messages += "<li>è¯·è¾“å…¥ <b>ç±»åˆ«ä»‹ç»ï¼</b></li>";
+			messages += "<li>ÇëÊäÈë <b>Àà±ğ½éÉÜ£¡</b></li>";
 		}
 		request.setAttribute("messages", messages);
 		return mark;
 	}
 
 	/**
-	 * @åŠŸèƒ½ åå°-å¢åŠ æ–‡ç« ç±»åˆ«
+	 * @¹¦ÄÜ ºóÌ¨-Ôö¼ÓÎÄÕÂÀà±ğ
 	 */
 	public String addArticleType() {
 
@@ -519,20 +519,20 @@ public class ArticleAction extends BaseAction {
 				ArticleTypeDao articleTypeDao = new ArticleTypeDao();
 				boolean mark = articleTypeDao.operationArticleType("add", typeBean);
 				if (mark) {
-					messages += "<li>æ·»åŠ æ–‡ç« ç±»åˆ«æˆåŠŸï¼</li>";
-					href = "<a href='" + request.getContextPath() + "/sys/article_admin_articleTypeAdd'>[ç»§ç»­æ·»åŠ æ–‡ç« ç±»åˆ«]</a>";
+					messages += "<li>Ìí¼ÓÎÄÕÂÀà±ğ³É¹¦£¡</li>";
+					href = "<a href='" + request.getContextPath() + "/sys/article_admin_articleTypeAdd'>[¼ÌĞøÌí¼ÓÎÄÕÂÀà±ğ]</a>";
 					// forward="/admin/success.jsp";
 					request.setAttribute("messages", messages);
 					request.setAttribute("href", href);
 					return "successAdmin";
 				} else {
-					messages += "<li>æ·»åŠ æ–‡ç« ç±»åˆ«å¤±è´¥ï¼</li>";
-					href = "<a href='javascript:window.history.go(-1)'>[è¿”å›]</a>";
+					messages += "<li>Ìí¼ÓÎÄÕÂÀà±ğÊ§°Ü£¡</li>";
+					href = "<a href='javascript:window.history.go(-1)'>[·µ»Ø]</a>";
 				}
 				request.setAttribute("messages", messages);
 				request.setAttribute("href", href);
 			} else {
-				href = "<a href='javascript:window.history.go(-1)'>[è¿”å›]</a>";
+				href = "<a href='javascript:window.history.go(-1)'>[·µ»Ø]</a>";
 				request.setAttribute("href", href);
 			}
 			return "failAdmin";
@@ -552,7 +552,7 @@ public class ArticleAction extends BaseAction {
 	}
 
 	/**
-	 * @åŠŸèƒ½ åå°-ä¿®æ”¹æ–‡ç« ç±»åˆ«
+	 * @¹¦ÄÜ ºóÌ¨-ĞŞ¸ÄÎÄÕÂÀà±ğ
 	 */
 	public String articleTypeModify() {
 		request = ServletActionContext.getRequest();
@@ -576,21 +576,21 @@ public class ArticleAction extends BaseAction {
 					typeBean.setId(Integer.parseInt(request.getParameter("typeId")));
 					boolean mark = typeDao.operationArticleType("modify", typeBean);
 					if (mark) {
-						messages = "<li>ä¿®æ”¹ç±»åˆ«æˆåŠŸï¼</li>";
+						messages = "<li>ĞŞ¸ÄÀà±ğ³É¹¦£¡</li>";
 						href = "<a href='" + request.getContextPath()
-								+ "/sys/article_admin_articleTypeList'>[ç»§ç»­ä¿®æ”¹å…¶ä»–ç±»åˆ«]</a>";
+								+ "/sys/article_admin_articleTypeList'>[¼ÌĞøĞŞ¸ÄÆäËûÀà±ğ]</a>";
 
 						request.setAttribute("messages", messages);
 						request.setAttribute("href", href);
 						return "successAdmin";
 					} else {
-						messages = "<li>ä¿®æ”¹å¤±è´¥ï¼</li>";
-						href = "<a href='javascript:window.history.go(-1)>[è¿”å›]</a>";
+						messages = "<li>ĞŞ¸ÄÊ§°Ü£¡</li>";
+						href = "<a href='javascript:window.history.go(-1)>[·µ»Ø]</a>";
 					}
 					request.setAttribute("messages", messages);
 					request.setAttribute("href", href);
 				} else {
-					href = "<a href='javascript:window.history.go(-1)>[è¿”å›]</a>";
+					href = "<a href='javascript:window.history.go(-1)>[·µ»Ø]</a>";
 					request.setAttribute("href", href);
 				}
 				return "failAdmin";
@@ -602,7 +602,7 @@ public class ArticleAction extends BaseAction {
 	}
 
 	/**
-	 * @åŠŸèƒ½ åå°-åˆ é™¤æ–‡ç« ç±»åˆ«
+	 * @¹¦ÄÜ ºóÌ¨-É¾³ıÎÄÕÂÀà±ğ
 	 */
 	public String deleteArticleType() {
 
@@ -618,15 +618,15 @@ public class ArticleAction extends BaseAction {
 			typeBean.setId(Integer.parseInt(request.getParameter("typeId")));
 			boolean mark = typeDao.operationArticleType("delete", typeBean);
 			if (mark) {
-				messages += "<li>åˆ é™¤ç±»åˆ«æˆåŠŸï¼</li>";
-				href = "<a href='" + request.getContextPath() + "/sys/article_admin_articleTypeList'>[ç»§ç»­åˆ é™¤å…¶ä»–ç±»åˆ«]</a>";
+				messages += "<li>É¾³ıÀà±ğ³É¹¦£¡</li>";
+				href = "<a href='" + request.getContextPath() + "/sys/article_admin_articleTypeList'>[¼ÌĞøÉ¾³ıÆäËûÀà±ğ]</a>";
 				request.setAttribute("messages", messages);
 				request.setAttribute("href", href);
 				return "successAdmin";
 
 			} else {
-				messages += "<li>åˆ é™¤ç±»åˆ«å¤±è´¥ï¼</li>";
-				href = "<a href='javascript:window.history.go(-1)'>[è¿”å›]</a>";
+				messages += "<li>É¾³ıÀà±ğÊ§°Ü£¡</li>";
+				href = "<a href='javascript:window.history.go(-1)'>[·µ»Ø]</a>";
 			}
 			request.setAttribute("messages", messages);
 			request.setAttribute("href", href);

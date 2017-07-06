@@ -45,9 +45,7 @@ public class RoleAction extends BaseAction {
 		
 		return "listUI";
 	}
-	//跳转到新增页�?
 	public String addUI(){
-		//加载权限集合
 		ActionContext.getContext().getContextMap().put("privilegeMap", Constant.PRIVILEGE_MAP);
 		
 		return "addUI";
@@ -56,7 +54,6 @@ public class RoleAction extends BaseAction {
 	public String add(){
 		try {
 			if(role != null){
-				//处理权限保存
 				if(privilegeIds != null){
 					HashSet<RolePrivilege> set = new HashSet<RolePrivilege>();
 					for(int i = 0; i < privilegeIds.length; i++){
@@ -71,14 +68,14 @@ public class RoleAction extends BaseAction {
 		}
 		return "list";
 	}
-	//跳转到编辑页�?
+
 	public String editUI(){
-		//加载权限集合
+
 		ActionContext.getContext().getContextMap().put("privilegeMap", Constant.PRIVILEGE_MAP);
 		if (role != null && role.getRoleId() != null) {
 			strName = role.getName();
 			role = roleService.findObjectById(role.getRoleId());
-			//处理权限回显
+
 			if(role.getRolePrivileges() != null){
 				privilegeIds = new String[role.getRolePrivileges().size()];
 				int i = 0;
@@ -89,11 +86,11 @@ public class RoleAction extends BaseAction {
 		}
 		return "editUI";
 	}
-	//保存编辑
+
 	public String edit(){
 		try {
 			if(role != null){
-				//处理权限保存
+
 				if(privilegeIds != null){
 					HashSet<RolePrivilege> set = new HashSet<RolePrivilege>();
 					for(int i = 0; i < privilegeIds.length; i++){
@@ -108,14 +105,14 @@ public class RoleAction extends BaseAction {
 		}
 		return "list";
 	}
-	//删除
+
 	public String delete(){
 		if(role != null && role.getRoleId() != null){
 			roleService.delete(role.getRoleId());
 		}
 		return "list";
 	}
-	//批量删除
+
 	public String deleteSelected(){
 		if(selectedRow != null){
 			for(String id: selectedRow){

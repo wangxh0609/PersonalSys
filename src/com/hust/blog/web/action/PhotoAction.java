@@ -33,7 +33,7 @@ public class PhotoAction extends BaseAction {
 	private String photoImgFileName;
 	
 	/**
-	 * @ åŠŸèƒ½ åå°,éªŒè¯æ˜¯å¦ç™»å½•
+	 * @ ¹¦ÄÜ ºóÌ¨,ÑéÖ¤ÊÇ·ñµÇÂ¼
 	 * @return
 	 */
 	private Boolean isHaveLogin(){		
@@ -41,7 +41,7 @@ public class PhotoAction extends BaseAction {
 		if(obj!=null){
 			if(obj instanceof CrmStaff){
 				CrmStaff staff=(CrmStaff)obj;
-				if(!staff.getLoginName().equals("åŒ¿åç”¨æˆ·")){
+				if(!staff.getLoginName().equals("ÄäÃûÓÃ»§")){
 					return true;
 				}
 			}
@@ -92,7 +92,7 @@ public class PhotoAction extends BaseAction {
 	}
 
 	/**
-	 * @åŠŸèƒ½ å‰å°-æŸ¥è¯¢æ‰€æœ‰å›¾ç‰‡
+	 * @¹¦ÄÜ Ç°Ì¨-²éÑ¯ËùÓĞÍ¼Æ¬
 	 */
 	public String selectPhoto(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -106,7 +106,7 @@ public class PhotoAction extends BaseAction {
 	}
 
 	/**
-	 * @åŠŸèƒ½ åå°-æŸ¥è¯¢æ‰€æœ‰å›¾ç‰‡
+	 * @¹¦ÄÜ ºóÌ¨-²éÑ¯ËùÓĞÍ¼Æ¬
 	 */
 	public String adminphotoList() {
 		request = ServletActionContext.getRequest();
@@ -123,7 +123,7 @@ public class PhotoAction extends BaseAction {
 	}
 
 	/**
-	 * @åŠŸèƒ½ æŸ¥çœ‹æŸä¸ªå›¾ç‰‡è¯¦ç»†å†…å®¹
+	 * @¹¦ÄÜ ²é¿´Ä³¸öÍ¼Æ¬ÏêÏ¸ÄÚÈİ
 	 */
 	public String photoSingle() {
 		request = ServletActionContext.getRequest();
@@ -140,7 +140,7 @@ public class PhotoAction extends BaseAction {
 	}
 
 	/**
-	 * @åŠŸèƒ½ åˆ é™¤å›¾ç‰‡
+	 * @¹¦ÄÜ É¾³ıÍ¼Æ¬
 	 */
 	public String deletePhoto() {
 		request = ServletActionContext.getRequest();
@@ -161,26 +161,26 @@ public class PhotoAction extends BaseAction {
 	
 			PhotoBean photoBean = new PhotoBean();
 			photoBean.setId(id);
-			photoDao.connect();
+			//photoDao.connect();
 			if (photoDao.operationPhoto("delete", photoBean)) {
 				boolean result = file.delete();
 				if (result) {
-					messages = "<li>åˆ é™¤ç…§ç‰‡æˆåŠŸï¼</li>";
+					messages = "<li>É¾³ıÕÕÆ¬³É¹¦£¡</li>";
 					forward = "/admin/success.jsp";
-					href = "<a href='" + request.getContextPath() + "/sys/photo_admin_adminphotoList'>[ç»§ç»­åˆ é™¤å…¶ä»–ç…§ç‰‡]</a>";
+					href = "<a href='" + request.getContextPath() + "/sys/photo_admin_adminphotoList'>[¼ÌĞøÉ¾³ıÆäËûÕÕÆ¬]</a>";
 					request.setAttribute("messages", messages);
 					request.setAttribute("href", href);
 					return "success";
 				} else {
-					messages = "<li>åˆ é™¤ç…§ç‰‡å¤±è´¥ï¼</li>";
+					messages = "<li>É¾³ıÕÕÆ¬Ê§°Ü£¡</li>";
 					forward = "/admin/error.jsp";
-					href = "<a href='javascript:window.history.go(-1)'>[è¿”å›]</a>";
+					href = "<a href='javascript:window.history.go(-1)'>[·µ»Ø]</a>";
 				}
 	
 			} else {
-				messages = "<li>åˆ é™¤ç…§ç‰‡å¤±è´¥ï¼</li>";
+				messages = "<li>É¾³ıÕÕÆ¬Ê§°Ü£¡</li>";
 				forward = "/admin/error.jsp";
-				href = "<a href='javascript:window.history.go(-1)'>[è¿”å›]</a>";
+				href = "<a href='javascript:window.history.go(-1)'>[·µ»Ø]</a>";
 			}
 			request.setAttribute("messages", messages);
 			request.setAttribute("href", href);
@@ -198,7 +198,7 @@ public class PhotoAction extends BaseAction {
 	}
 
 	/**
-	 * @åŠŸèƒ½ ä¸Šä¼ å›¾ç‰‡åŠŸèƒ½
+	 * @¹¦ÄÜ ÉÏ´«Í¼Æ¬¹¦ÄÜ
 	 */
 	public String addPhoto() {
 		request = ServletActionContext.getRequest();
@@ -218,29 +218,29 @@ public class PhotoAction extends BaseAction {
 	
 			String photoInfo = request.getParameter("info");
 	
-			if (photoInfo == null || photoInfo.equals("")) { // éªŒè¯ç…§ç‰‡æè¿°ä¿¡æ¯ï¼Œè‹¥æ²¡æœ‰è¾“å…¥ï¼Œåˆ™æç¤ºè¾“å…¥ç…§ç‰‡æè¿°ä¿¡æ¯
-				messages = "è¯·è¾“å…¥ç…§ç‰‡æè¿°ä¿¡æ¯ï¼";
-				href = "<a href='javascript:window.history.go(-1)'>[è¿”å›]</a>";
+			if (photoInfo == null || photoInfo.equals("")) { // ÑéÖ¤ÕÕÆ¬ÃèÊöĞÅÏ¢£¬ÈôÃ»ÓĞÊäÈë£¬ÔòÌáÊ¾ÊäÈëÕÕÆ¬ÃèÊöĞÅÏ¢
+				messages = "ÇëÊäÈëÕÕÆ¬ÃèÊöĞÅÏ¢£¡";
+				href = "<a href='javascript:window.history.go(-1)'>[·µ»Ø]</a>";
 			} else {
 				if (photoImg != null) {
 					if(photoImg.exists() && photoImg.isFile()){
 					    long fileS = photoImg.length();
 					    if(fileS>5*1024*1024){
-					    	messages = "ä¸èƒ½èƒ½ä¸Šä¼ å¤§äº5Mçš„æ–‡ä»¶çš„æ–‡ä»¶ï¼";
-							href = "<a href='javascript:window.history.go(-1)'>[è¿”å›]</a>";
+					    	messages = "²»ÄÜÄÜÉÏ´«´óÓÚ5MµÄÎÄ¼şµÄÎÄ¼ş£¡";
+							href = "<a href='javascript:window.history.go(-1)'>[·µ»Ø]</a>";
 							request.setAttribute("messages", messages);
 							request.setAttribute("href", href);
 							return "fail";
 					    }
 					}
 					if (!validatePhotoType(photoImgFileName)) {					
-						messages = "åªèƒ½ä¸Šä¼ jpg|jpeg|gif|bmp|png|icoæ ¼å¼çš„æ–‡ä»¶ï¼";
-						href = "<a href='javascript:window.history.go(-1)'>[è¿”å›]</a>";
+						messages = "Ö»ÄÜÉÏ´«jpg|jpeg|gif|bmp|png|ico¸ñÊ½µÄÎÄ¼ş£¡";
+						href = "<a href='javascript:window.history.go(-1)'>[·µ»Ø]</a>";
 					} else {
 						int dotIndex = photoImgFileName.lastIndexOf(".");
 						String ext = photoImgFileName.substring(dotIndex + 1);
 	
-						String now = MyTools.changeTime(new Date()); // è·å–å½“å‰æ—¶é—´å¹¶æ ¼å¼åŒ–ä¸ºå­—ç¬¦ä¸²
+						String now = MyTools.changeTime(new Date()); // »ñÈ¡µ±Ç°Ê±¼ä²¢¸ñÊ½»¯Îª×Ö·û´®
 						String photoAddr = photoDao.queryMaxId() + "." + ext;
 						photoBean.setPhotoAddr("/myPhoto/" + photoAddr);
 						photoBean.setPhotoTime(now);
@@ -249,29 +249,29 @@ public class PhotoAction extends BaseAction {
 						if(staff!=null){
 							photoBean.setPhotoCreator(staff.getLoginName());
 						}
-						photoDao.connect();
+						//photoDao.connect();
 						boolean mark = photoDao.operationPhoto("upload", photoBean);
 						if (mark) {
 							try {
 								FileUtils.copyFile(photoImg, new java.io.File(filePath, photoAddr));
-								messages = "ä¸Šä¼ æ–‡ä»¶æˆåŠŸï¼";
-								href = "<a href='" + request.getContextPath() + "/sys/photo_admin_photoUpload'>[ç»§ç»­ä¸Šä¼ ]</a>";
+								messages = "ÉÏ´«ÎÄ¼ş³É¹¦£¡";
+								href = "<a href='" + request.getContextPath() + "/sys/photo_admin_photoUpload'>[¼ÌĞøÉÏ´«]</a>";
 								request.setAttribute("messages", messages);
 								request.setAttribute("href", href);
 								return "success";
 							} catch (Exception ee) {
-								messages = "ä¸Šä¼ æ–‡ä»¶å¤±è´¥ï¼";
-								href = "<a href='javascript:window.history.go(-1)'>[è¿”å›]</a>";
+								messages = "ÉÏ´«ÎÄ¼şÊ§°Ü£¡";
+								href = "<a href='javascript:window.history.go(-1)'>[·µ»Ø]</a>";
 								ee.printStackTrace();
 							}
 						} else {
-							messages = "ä¿å­˜æ–‡ä»¶ä¿¡æ¯å¤±è´¥ï¼";
-							href = "<a href='javascript:window.history.go(-1)'>[è¿”å›]</a>";
+							messages = "±£´æÎÄ¼şĞÅÏ¢Ê§°Ü£¡";
+							href = "<a href='javascript:window.history.go(-1)'>[·µ»Ø]</a>";
 						}
 					}
 				} else {
-					messages = "è¯·é€‰æ‹©è¦ä¸Šä¼ çš„æ–‡ä»¶ï¼";
-					href = "<a href='javascript:window.history.go(-1)'>[è¿”å›]</a>";
+					messages = "ÇëÑ¡ÔñÒªÉÏ´«µÄÎÄ¼ş£¡";
+					href = "<a href='javascript:window.history.go(-1)'>[·µ»Ø]</a>";
 				}
 			}
 			request.setAttribute("messages", messages);

@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.hust.core.util.MyPoolManager;
 import com.hust.docMgr.blog.domain.PhotoBean;
 import com.hust.docMgr.blog.domain.WordBean;
 import com.hust.toolsbean.DB;
@@ -16,24 +17,10 @@ public class WordDao {
 	private Connection connection = null;
 	private PreparedStatement state=null;
 
-	public WordDao() {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			connection =DriverManager.getConnection("jdbc:mysql://localhost:3306/wangxh_forever", "javawangxh", "wang20110351");
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public WordDao() {		
 	}
 	
-	public void connect(){
-		try {		
-			connection =DriverManager.getConnection("jdbc:mysql://localhost:3306/wangxh_forever", "javawangxh", "wang20110351");
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+	
 	public boolean operationWord(String oper, WordBean single) {		
 		/* Éú³ÉSQLÓï¾ä */
 		String sql = null;
@@ -45,6 +32,7 @@ public class WordDao {
 			sql = "update tb_word set flag=0 where flag=-1";// + single.getId()
 
 		try{
+			connection=MyPoolManager.GetPoolInstance().getCurrentConnecton();
 			state=connection.prepareStatement(sql);
 			state.setString(1, single.getWordTitle());
 			state.setString(2,single.getWordContent());
@@ -67,7 +55,15 @@ public class WordDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}//connection.executeUpdate(sql);
+		}finally{
+			try {
+				state.close();
+				MyPoolManager.GetPoolInstance().releaseConn(connection);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		return flag>0?true:false;
 	}
 	
@@ -80,6 +76,7 @@ public class WordDao {
 	    	sql = "delete from tb_word where id=" + single.getId();
 	    }
 		try{
+			connection=MyPoolManager.GetPoolInstance().getCurrentConnecton();
 			state=connection.prepareStatement(sql);				
 		}catch(Exception e){
 			
@@ -90,6 +87,14 @@ public class WordDao {
 			flag = state.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				state.close();
+				MyPoolManager.GetPoolInstance().releaseConn(connection);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 		return flag>0?true:false;
@@ -108,6 +113,7 @@ public class WordDao {
 		WordBean wordBean = null;
 		ResultSet rs=null;
 		try{
+			connection=MyPoolManager.GetPoolInstance().getCurrentConnecton();
 			state=connection.prepareStatement(sql);
 			rs =state.executeQuery();// connection.executeQuery(sql);
 			//state.set			
@@ -133,6 +139,14 @@ public class WordDao {
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
+			}finally{
+				try {
+					rs.close();
+					MyPoolManager.GetPoolInstance().releaseConn(connection);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}			
 		}
 		return wordlist;
@@ -144,6 +158,7 @@ public class WordDao {
 		WordBean wordBean = null;
 		ResultSet rs=null;
 		try{
+			connection=MyPoolManager.GetPoolInstance().getCurrentConnecton();
 			state=connection.prepareStatement(sql);
 			state.setInt(1,wordId);
 			rs =state.executeQuery();			
@@ -168,7 +183,15 @@ public class WordDao {
 			}
 		}catch(Exception e){
 			e.printStackTrace();
-		}	
+		}finally{
+			try {
+				rs.close();
+				MyPoolManager.GetPoolInstance().releaseConn(connection);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}		
 		return wordBean;
 	}
 	
@@ -185,6 +208,7 @@ public class WordDao {
 		WordBean wordBean = null;
 		ResultSet rs=null;
 		try{
+			connection=MyPoolManager.GetPoolInstance().getCurrentConnecton();
 			state=connection.prepareStatement(sql);
 			state.setInt(1, wordId);
 			rs =state.executeQuery();
@@ -210,11 +234,19 @@ public class WordDao {
 					}
 				} catch (SQLException e) {
 					e.printStackTrace();
-				}		
+				}	
 			}
 		}catch(Exception e){
 			
-		}	
+		}finally{
+			try {
+				rs.close();
+				MyPoolManager.GetPoolInstance().releaseConn(connection);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}		
 	}
 	
 }

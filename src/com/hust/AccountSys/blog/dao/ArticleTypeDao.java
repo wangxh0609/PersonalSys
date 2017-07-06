@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.hust.core.util.MyPoolManager;
 import com.hust.docMgr.blog.domain.ArticleTypeBean;
 import com.hust.toolsbean.DB;
 
@@ -16,12 +17,7 @@ public class ArticleTypeDao {
 	private PreparedStatement state=null;
 
 	public ArticleTypeDao() {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			connection =DriverManager.getConnection("jdbc:mysql://localhost:3306/wangxh_forever", "javawangxh", "wang20110351");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	
 	}
 
 	public boolean operationArticleType(String operation, ArticleTypeBean single) {		
@@ -35,11 +31,20 @@ public class ArticleTypeDao {
 		int mark=0;
 		//boolean flag =connection.executeUpdate(sql);
 		try{
+			connection=MyPoolManager.GetPoolInstance().getCurrentConnecton();
 			state=connection.prepareStatement(sql);			
 			mark = state.executeUpdate();
 		}catch(Exception e){
 			
-		}				
+		}finally{
+			try {
+				MyPoolManager.GetPoolInstance().releaseConn(connection);
+				state.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		return mark>0?true:false;
 	}
 	
@@ -48,6 +53,7 @@ public class ArticleTypeDao {
 		String sql = "select * from tb_articleType where articleType_id=" + id;
 		ResultSet rs=null;
 		try{
+			connection=MyPoolManager.GetPoolInstance().getCurrentConnecton();
 			state=connection.prepareStatement(sql);
 			rs =state.executeQuery();// connection.executeQuery(sql);
 			//state.set			
@@ -65,7 +71,15 @@ public class ArticleTypeDao {
 			} catch (SQLException e) {
 				typeBean=null;
 				e.printStackTrace();
-			}			
+			}finally{
+				try {
+					MyPoolManager.GetPoolInstance().releaseConn(connection);
+					rs.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 		}
 		return typeBean;
 	}
@@ -75,6 +89,7 @@ public class ArticleTypeDao {
 		String sql = "select * from tb_articleType";
 		ResultSet rs=null;
 		try{
+			connection=MyPoolManager.GetPoolInstance().getCurrentConnecton();
 			state=connection.prepareStatement(sql);
 			rs =state.executeQuery();// connection.executeQuery(sql);
 			//state.set			
@@ -93,7 +108,15 @@ public class ArticleTypeDao {
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
-			}			
+			}finally{			
+				try {
+					MyPoolManager.GetPoolInstance().releaseConn(connection);
+					rs.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 		}
 		return typelist;
 	}

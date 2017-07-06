@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.hust.core.util.MyPoolManager;
 import com.hust.docMgr.blog.domain.FriendBean;
 import com.hust.toolsbean.DB;
 
@@ -15,12 +16,7 @@ public class FriendDao {
 	private Connection connection = null;
 	private PreparedStatement state=null;
 	public FriendDao() {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			connection =DriverManager.getConnection("jdbc:mysql://localhost:3306/wangxh_forever", "javawangxh", "wang20110351");
-		} catch (Exception e) {		
-			e.printStackTrace();
-		}
+		
 	}
 
 	// ÐÞ¸ÄÅóÓÑ
@@ -38,11 +34,20 @@ public class FriendDao {
 		int mark=0;
 		
 		try{
+			connection=MyPoolManager.GetPoolInstance().getCurrentConnecton();
 			state=connection.prepareStatement(sql);			
 			mark = state.executeUpdate();
 		}catch(Exception e){
 			
-		}				
+		}finally{
+			try {
+				MyPoolManager.GetPoolInstance().releaseConn(connection);
+				state.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		return mark>0?true:false;
 	}
 
@@ -59,6 +64,7 @@ public class FriendDao {
 		FriendBean friendBean = null;
 		ResultSet rs=null;
 		try{
+			connection=MyPoolManager.GetPoolInstance().getCurrentConnecton();
 			state=connection.prepareStatement(sql);
 			rs =state.executeQuery();// connection.executeQuery(sql);
 			//state.set			
@@ -77,6 +83,14 @@ public class FriendDao {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				MyPoolManager.GetPoolInstance().releaseConn(connection);
+				rs.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return list;
 	}
@@ -90,6 +104,7 @@ public class FriendDao {
 		String sql = "select * from tb_friend where id=" + id;
 		ResultSet rs=null;
 		try{
+			connection=MyPoolManager.GetPoolInstance().getCurrentConnecton();
 			state=connection.prepareStatement(sql);
 			rs =state.executeQuery();// connection.executeQuery(sql);
 			//state.set			
@@ -110,22 +125,14 @@ public class FriendDao {
 			e.printStackTrace();
 		} finally{
 			try {
-				connection.close();
+				rs.close();
+				MyPoolManager.GetPoolInstance().releaseConn(connection);				
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 		return friendBean;
-	}
-	
-	public void closeConnection(){
-		try {
-			connection.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 	
 

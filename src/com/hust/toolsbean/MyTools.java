@@ -43,7 +43,7 @@ public class MyTools {
     	if (value == null)
     		return "";
     	try {
-            value = new String(value.getBytes("ISO8859_1"), "gb2312");
+            value = new String(value.getBytes("ISO8859_1"), "utf-8");
             return value;
         } catch (Exception e) {
             return "";
